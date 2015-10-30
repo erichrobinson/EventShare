@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
+var findOrCreate = require('mongoose-findorcreate')
+
+
 /**
  * Create a schema (blueprint) for all users in the database.
  * If you want to collect additional info, add the fields here.
@@ -11,19 +14,21 @@ var bcrypt = require('bcryptjs');
 var userSchema = mongoose.Schema({
   username: {
 	  type: String,
-    required: true,
+    required: false,
     unique: true
   },
   email: {
     type: String,
-    required: true,
+    required: false,
     unique: true
   },
   password: {
     type: String,
-    required: true
+    required: false
   }
 });
+
+userSchema.plugin(findOrCreate);
 
 /**
  * This allows us to hook into the pre-save DB flow. Our

@@ -1,0 +1,22 @@
+.red {
+	background-color: red;
+	height: 100px;
+}
+.black {
+	background-color: black;
+	height: 100px;
+}
+.green {
+	background-color: green;
+	height: 100px;
+}
+.eventHero {
+	height: 300px;
+	background-color: grey;
+	text-align: center;
+}
+.eventDetails {
+	display: inline-block;
+	position: relative;
+	top: 110px;
+}

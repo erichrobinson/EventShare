@@ -2,27 +2,53 @@
 <html ng-app="Tahona">
 <head>
 	<title>Materialize Tahona</title>
-	<link rel="stylesheet" href="../css/angular-material.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.11.4/angular-material.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/docs.css">
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body ng-controller="mainController" ng-cloak>
-	<nav >
-		<ul>
-			<li >Home</li>
-			<li>About</li>
-		</ul>
-	</nav>
+	<script>
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '418580371685513',
+	      xfbml      : true,
+	      version    : 'v2.5'
+	    });
+	  };
+
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	</script>
+	<div layout="row" class="green">
+		<nav>
+			<ul>
+				<li >Home</li>
+				<li>About</li>
+			</ul>
+			<a ng-click="getUser()" href="/auth/facebook">Login with Facebook</a>
+
+		</nav>
+	</div>
+	
+
+
 
 	<div ng-view>
 		
 	</div>
 
-   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-aria.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-messages.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.11.4/angular-material.min.js" type="text/javascript"></script>
+
   <script type="text/javascript" src="../js/main.js"></script>
   </body>
 </body>

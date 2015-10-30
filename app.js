@@ -8,12 +8,14 @@ mongoose.connect('mongodb://localhost/passport-demo')
 
 // Auth Requires
 var session = require('express-session');
-var passport = require('passport');
+var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;
 
 var passportConfig = require('./config/passport'); // Load in our passport configuration that decides how passport actually runs and authenticates
 
 // Create Express App Object \\
 var app = express();
+
+var User = require("./models/user.js")
 
 // Session Setup
 app.use(session({
@@ -21,6 +23,19 @@ app.use(session({
 	resave: true,
 	saveUninitialized: false
 }));
+
+passport.use(new FacebookStrategy({
+    clientID: 418580371685513,
+    clientSecret: "533cfca3455663985fc8eb0a61b4f9f4",
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate(profile, function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+  }
+));
 
 // Hook in passport to the middleware chain
 app.use(passport.initialize());
@@ -60,11 +75,24 @@ app.get('/api/me', function(req, res){
 })
 
 
+// Redirect the user to Facebook for authentication.  When complete,
+// Facebook will redirect the user back to the application at
+//     /auth/facebook/callback
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+// Facebook will redirect the user to this URL after approval.  Finish the
+// authentication process by attempting to obtain an access token.  If
+// access was granted, the user will be logged in.  Otherwise,
+// authentication has failed.
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: '/',
+                                      failureRedirect: '/login' }));
+
 // ***** IMPORTANT ***** //
 // By including this middleware (defined in our config/passport.js module.exports),
 // We can prevent unauthorized access to any route handler defined after this call
 // to .use()
-app.use(passportConfig.ensureAuthenticated);
+// app.use(passportConfig.ensureAuthenticated);
 
 // this should change to route to the logged in home page
 app.get('/', function(req, res){

@@ -1,4 +1,4 @@
-angular.module('Tahona', ['ngRoute'])
+angular.module('Tahona', ['ngRoute', 'ngMaterial'])
 
 angular.module('Tahona')
 	.service('authService', ['$http', '$location', function($http){
@@ -15,14 +15,18 @@ angular.module('Tahona')
 	.config(['$routeProvider', function($routeProvider){
 		// No need to define #, it is assumed
 		$routeProvider
-			.when('/', {
+			// .when('/', {
+			// 	templateUrl : '/html/home.html',
+			// 	controller : 'mainController'
+			// })
+			.when('/user/:userID', {
 				templateUrl : '/html/user.html',
 				controller : 'mainController'
 			})
-			// .when('/profile/:heroName', {
-			// 	templateUrl : '/html/hero.html',
-			// 	controller : 'heroController'
-			// })
+			.when('/event/:eventID', {
+				templateUrl : '/html/event.html',
+				controller : 'mainController'
+			})
 			// .when('/error', {
 			// 	templateUrl : 'html/error.html',
 			// 	controller : 'errorController'
@@ -33,11 +37,20 @@ angular.module('Tahona')
 	}])
 
 angular.module('Tahona')
-	.controller('mainController', ['$scope', '$http', 'authService', function($scope, $http, authService){
+	.controller('mainController', ['$scope', '$http', 'authService', '$location', function($scope, $http, authService, $location){
+
+
+
+		$scope.title = "working"
 
 		authService.authCheck(function(user){
 			console.log('USER!', user)
 			$scope.user = user
+			if(user){
+			$location.url('/user/' + user._id)
+		}
 		})
+
+		
 
 	}])
