@@ -24,15 +24,37 @@ app.use(session({
 	saveUninitialized: false
 }));
 
+// FACEBOOK AUTH AND SAVE TO DB
 passport.use(new FacebookStrategy({
     clientID: 418580371685513,
     clientSecret: "533cfca3455663985fc8eb0a61b4f9f4",
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
+    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate(profile, function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
+    User.findOrCreate({ userID: profile.id },{userID : profile.id,username : profile.displayName},function(err, user) {
+      console.log(profile)
+      if(err){
+          console.log("error")
+          done(err)
+        }
+        else{
+          done(null, user)
+        }
+      // var newUser = new User({
+      //     userID : profile.id,
+      //     username : profile.displayName,
+      // })
+      // newUser.save(function(err){
+      //   if(err){
+      //     console.log("error")
+      //   }
+      //   else{
+      //     done(null, newUser)
+      //   }
+      // })
+      // if (err) { return done(err); }
+      // done(null, user);
     });
   }
 ));
@@ -78,7 +100,7 @@ app.get('/api/me', function(req, res){
 // Redirect the user to Facebook for authentication.  When complete,
 // Facebook will redirect the user back to the application at
 //     /auth/facebook/callback
-app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook', passport.authenticate('facebook', {scope : ['email']}));
 
 // Facebook will redirect the user to this URL after approval.  Finish the
 // authentication process by attempting to obtain an access token.  If
@@ -98,8 +120,6 @@ app.get('/auth/facebook/callback',
 app.get('/', function(req, res){
   res.sendFile('/html/home.html', {root : './public'})
 });
-// app.get('/superSensitiveDataRoute')
-
 
 // Creating Server and Listening for Connections \\
 var port = 3000

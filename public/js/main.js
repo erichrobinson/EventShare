@@ -39,16 +39,11 @@ angular.module('Tahona')
 angular.module('Tahona')
 	.controller('mainController', ['$scope', '$http', 'authService', '$location', function($scope, $http, authService, $location){
 
-
-
-		$scope.title = "working"
-
 		authService.authCheck(function(user){
-			console.log('USER!', user)
 			$scope.user = user
 			if(user){
-			$location.url('/user/' + user._id)
-		}
+				$location.url('/user/' + user._id)
+			}
 		})
 
 		

@@ -7,31 +7,13 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body ng-controller="mainController" ng-cloak>
-	<script>
-	  window.fbAsyncInit = function() {
-	    FB.init({
-	      appId      : '418580371685513',
-	      xfbml      : true,
-	      version    : 'v2.5'
-	    });
-	  };
-
-	  (function(d, s, id){
-	     var js, fjs = d.getElementsByTagName(s)[0];
-	     if (d.getElementById(id)) {return;}
-	     js = d.createElement(s); js.id = id;
-	     js.src = "//connect.facebook.net/en_US/sdk.js";
-	     fjs.parentNode.insertBefore(js, fjs);
-	   }(document, 'script', 'facebook-jssdk'));
-	</script>
 	<div layout="row" class="green">
 		<nav>
 			<ul>
 				<li >Home</li>
 				<li>About</li>
 			</ul>
-			<a ng-click="getUser()" href="/auth/facebook">Login with Facebook</a>
-
+			<a href="/auth/facebook">Login with Facebook</a>
 		</nav>
 	</div>
 	

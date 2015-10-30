@@ -12,7 +12,9 @@ var User = require('../models/user');
  * structure matches. We also need to know the user model
  * we want to log in.
  */
+
 var performLogin = function(req, res, next, user){
+  console.log('user',user)
   // Passport injects functionality into the express ecosystem,
   // so we are able to call req.login and pass the user we want
   // logged in.
@@ -29,6 +31,7 @@ var performLogin = function(req, res, next, user){
  * Our base authentication controller object
  */
 var authenticationController = {
+
 
   // The route-handler for the /auth/login route. Meant to be
   // a page view that only shows login forms
@@ -86,7 +89,9 @@ var authenticationController = {
 
     // Now that the user is created, we'll attempt to save them to the
     // database.
+
     user.save(function(err, user){
+     
       
       // If there is an error, it will come with some special codes and
       // information. We can customize the printed message based on

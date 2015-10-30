@@ -15,17 +15,25 @@ var userSchema = mongoose.Schema({
   username: {
 	  type: String,
     required: false,
-    unique: true
+    unique: false
   },
-  email: {
-    type: String,
-    required: false,
-    unique: true
+  // email: {
+  //   type: String,
+  //   required: false,
+  //   unique: false
+  // },
+  userID : {
+    type : Number,
+    required : false
   },
   password: {
     type: String,
     required: false
-  }
+  },
+  // friends : {
+  //   type: Array,
+  //   required : false
+  // }
 });
 
 userSchema.plugin(findOrCreate);
@@ -35,12 +43,9 @@ userSchema.plugin(findOrCreate);
  * callback will be called whenever a new user is about to
  * be saved to the database so that we can encrypt the password.
  */
- // var billyBob = new User({----})
- // billyBob.save()
-
-// 'chickennuggets' -> '123098sadkhjsASLKJSFLHk4384rn.hjksdflkhjASLKFnkjdsfjhksdfkh'
 
 userSchema.pre('save', function(next){
+
 
   // First, check to see if the password has been modified. If not, just move on.
   if(!this.isModified('password')) return next();
@@ -92,18 +97,6 @@ userSchema.methods.comparePassword = function(candidatePassword, next){
     return next(null, isMatch);
   });
 };
-
-
-// var afterCompare = function(err, match){
-//   if(match){
-//     do the stuff
-//   }
-//   else{
-//     dont do the stuff
-//   }
-// }
-
-// billyBob.comparePassword(req.body.password, afterCompare)
 
 
 // Our user model
