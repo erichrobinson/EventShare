@@ -14,22 +14,27 @@ var findOrCreate = require('mongoose-findorcreate')
 var userSchema = mongoose.Schema({
   username: {
 	  type: String,
-    required: false,
+    required: true,
     unique: false
   },
   // email: {
   //   type: String,
   //   required: false,
-  //   unique: false
+  //   unique: true
   // },
+  events : {
+    type : Array,
+    required: true,
+  },
   userID : {
     type : Number,
-    required : false
+    required : true,
+    unique: true
   },
-  password: {
-    type: String,
-    required: false
-  },
+  // password: {
+  //   type: String,
+  //   required: true
+  // },
   // friends : {
   //   type: Array,
   //   required : false

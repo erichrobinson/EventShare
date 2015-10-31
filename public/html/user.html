@@ -1,4 +1,5 @@
-<h3>{{title}}</h3>
+<div ng-controller="userController">
+  <h3>{{userName}}</h3>
 
  <md-content class="md-padding">
     <md-card>
@@ -16,6 +17,12 @@
       </div>
     </md-card>
 </md-content>
+
+<md-button class="md-primary md-raised" ng-click="showConfirm($event)" flex-sm="100" flex-md="100" flex-gt-md="auto">
+      Confirm Dialog
+    </md-button>
+
+</div>
 
 
 

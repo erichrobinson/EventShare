@@ -32,7 +32,8 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ userID: profile.id },{userID : profile.id,username : profile.displayName},function(err, user) {
+    User.findOrCreate({ userID: profile.id },{userID : profile.id, username : profile.name.givenName + ' ' + profile.name.familyName, events : [{}]},function(err, user) {
+      console.log()
       console.log(profile)
       if(err){
           console.log("error")
@@ -41,20 +42,6 @@ passport.use(new FacebookStrategy({
         else{
           done(null, user)
         }
-      // var newUser = new User({
-      //     userID : profile.id,
-      //     username : profile.displayName,
-      // })
-      // newUser.save(function(err){
-      //   if(err){
-      //     console.log("error")
-      //   }
-      //   else{
-      //     done(null, newUser)
-      //   }
-      // })
-      // if (err) { return done(err); }
-      // done(null, user);
     });
   }
 ));
@@ -95,6 +82,23 @@ app.get('/auth/logout', authenticationController.logout);
 app.get('/api/me', function(req, res){
 	res.send(req.user)
 })
+
+app.get('/getUserName', function(req, res){
+  console.log("params", req.query)
+  console.log("id", req.query.id)
+  User.find({_id : req.query.id}, function(err, docs){
+    if(err){
+      res.send(err)
+    }
+    else{
+      res.send(docs)
+    }
+  })
+})
+
+// app.post('/createEvent', function(req, res){
+  
+// })
 
 
 // Redirect the user to Facebook for authentication.  When complete,
