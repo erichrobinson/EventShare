@@ -58,12 +58,23 @@ angular.module('Tahona')
 angular.module('Tahona')
 	.controller('userController', ['$scope', '$http', 'authService', '$location', '$routeParams', '$rootScope', '$mdDialog', function($scope, $http, authService, $location, $routeParams, $rootScope, $mdDialog){
 
+		$scope.userEvents
+
 		// GET REQUEST TO FIND AND SET CURRENT USER 
 		$http.get('/getUserName?id=' + $routeParams.userID)
 			.then(function(returnData){
 				$scope.userName = $rootScope.currentUser.username
 			})
 
+		// GET REQUEST TO FIND ALL USER EVENTS
+		$http.get('/findAllEvents?id=' + $routeParams.userID)
+			.then(function(returnData){
+				console.log($routeParams)
+				console.log(returnData.data)
+				$scope.userEvents = returnData.data[0].events
+			})
+
+		// CREATE OBJECT OF USER ID AND SUBMITTED EVENT - POST TO DB
 		$scope.createEvent = function(){
 			console.log($scope.event.title)
 			var testObj = {
@@ -74,7 +85,15 @@ angular.module('Tahona')
 		      	.then(function(returnData){		  
 		      		console.log("returnDataFromServer", returnData)
 		      	})
+		    $http.get('/findAllEvents?id=' + $routeParams.userID)
+				.then(function(returnData){
+					console.log($routeParams)
+					console.log(returnData.data[0].events)
+					$scope.userEvents = returnData.data[0].events
+			})
 		}
+
+		
 		
 
 		// $scope.showConfirm = function(ev) {

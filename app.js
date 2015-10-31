@@ -94,7 +94,6 @@ app.get('/getUserName', function(req, res){
   })
 })
 
-
 app.post('/createEvent', function(req,res){
   User.findOneAndUpdate(
     {_id : req.body.userID},
@@ -107,18 +106,17 @@ app.post('/createEvent', function(req,res){
   res.send("done")
 })
 
-// app.post('/createEvent', function(req, res){
-//   User.findOne({_id : req.body.userID}, function(err, docs){
-//     if(err){
-//       res.send(err)
-//     }
-//     else{
-//       console.log("req ", req.body)
-//       res.send("done")
-//     }
-//   })
-// })
-
+app.get('/findAllEvents', function(req, res){
+  console.log(req.query.id)
+  User.find({_id : req.query.id}, function(err, doc){
+    if(err){
+      res.send(err)
+    }
+    else{
+      res.send(doc)
+    }
+  })
+})
 
 // Redirect the user to Facebook for authentication.  When complete,
 // Facebook will redirect the user back to the application at
