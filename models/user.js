@@ -24,7 +24,7 @@ var userSchema = mongoose.Schema({
   // },
   events : {
     type : Array,
-    required: true,
+    required: false,
   },
   userID : {
     type : Number,

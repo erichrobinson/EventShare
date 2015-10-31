@@ -32,7 +32,7 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ userID: profile.id },{userID : profile.id, username : profile.name.givenName + ' ' + profile.name.familyName, events : [{}]},function(err, user) {
+    User.findOrCreate({ userID: profile.id },{userID : profile.id, username : profile.name.givenName + ' ' + profile.name.familyName, events : []},function(err, user) {
       console.log()
       console.log(profile)
       if(err){
@@ -94,19 +94,30 @@ app.get('/getUserName', function(req, res){
   })
 })
 
-app.post('/createEvent', function(req, res){
-  User.findOne({_id : req.body.userID}, function(err, docs){
-    if(err){
-      res.send(err)
-    }
-    else{
-      console.log(User)
-      console.log("found" + req.body.userID)
-      res.send(docs)
 
+app.post('/createEvent', function(req,res){
+  User.findOneAndUpdate(
+    {_id : req.body.userID},
+    {$push : {events : {eventName : req.body.eventName}}},
+    {safe : true, upsert : true},
+    function(err, model){
+      console.log(err)
     }
-  })
+    )
+  res.send("done")
 })
+
+// app.post('/createEvent', function(req, res){
+//   User.findOne({_id : req.body.userID}, function(err, docs){
+//     if(err){
+//       res.send(err)
+//     }
+//     else{
+//       console.log("req ", req.body)
+//       res.send("done")
+//     }
+//   })
+// })
 
 
 // Redirect the user to Facebook for authentication.  When complete,
