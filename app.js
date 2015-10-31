@@ -84,8 +84,6 @@ app.get('/api/me', function(req, res){
 })
 
 app.get('/getUserName', function(req, res){
-  console.log("params", req.query)
-  console.log("id", req.query.id)
   User.find({_id : req.query.id}, function(err, docs){
     if(err){
       res.send(err)
@@ -96,9 +94,19 @@ app.get('/getUserName', function(req, res){
   })
 })
 
-// app.post('/createEvent', function(req, res){
-  
-// })
+app.post('/createEvent', function(req, res){
+  User.findOne({_id : req.body.userID}, function(err, docs){
+    if(err){
+      res.send(err)
+    }
+    else{
+      console.log(User)
+      console.log("found" + req.body.userID)
+      res.send(docs)
+
+    }
+  })
+})
 
 
 // Redirect the user to Facebook for authentication.  When complete,

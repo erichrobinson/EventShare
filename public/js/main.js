@@ -58,32 +58,41 @@ angular.module('Tahona')
 angular.module('Tahona')
 	.controller('userController', ['$scope', '$http', 'authService', '$location', '$routeParams', '$rootScope', '$mdDialog', function($scope, $http, authService, $location, $routeParams, $rootScope, $mdDialog){
 
+		// GET REQUEST TO FIND AND SET CURRENT USER 
 		$http.get('/getUserName?id=' + $routeParams.userID)
 			.then(function(returnData){
-				console.log("returnData", returnData)
 				$scope.userName = $rootScope.currentUser.username
 			})
 
-		// $scope.createEvent = function(){
-		// 	$http.post('/createEvent'){
+		$scope.createEvent = function(){
+			console.log($scope.event.title)
+			var testObj = {
+				userID : $routeParams.userID,
+				eventName : $scope.event.title
+			}
+			$http.post('/createEvent', testObj)
+		      	.then(function(returnData){		  
+		      		console.log("returnDataFromServer", returnData)
+		      	})
+		}
+		
 
-		// 	}
-		// }
-
-		$scope.showConfirm = function(ev) {
-		    // Appending dialog to document.body to cover sidenav in docs app
-		    var confirm = $mdDialog.confirm()
-		          .title('Create an Event')
-		          .content('<input placeholder="event name"> testing')		        
-		          .ariaLabel('Lucky day')
-		          .targetEvent(ev)
-		          .ok('Submit')
-		          .cancel('Cancel');
-		    $mdDialog.show(confirm).then(function() {
-		      $scope.status = 'You decided to get rid of your debt.';
-		    }, function() {
-		      $scope.status = 'You decided to keep your debt.';
-		    });
-  };	
+		// $scope.showConfirm = function(ev) {
+		//     // Appending dialog to document.body to cover sidenav in docs app
+		//     var confirm = $mdDialog.confirm()
+		//           .title('Create an Event')
+		//           .content('<form><input ng-model="newEvent.name" placeholder="event name"> <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker><form>')		        
+		//           .ariaLabel('Lucky day')
+		//           .targetEvent(ev)
+		//           .ok('Submit')
+		//           .cancel('Cancel');
+		//     $mdDialog.show(confirm).then(function() {
+		//       $scope.status = 'You decided to get rid of your debt.';
+		//       console.log("test")
+		//       $scope.createEvent()
+		//     }, function() {
+		//       $scope.status = 'You decided to keep your debt.';
+		//     });
+  // };	
 
 	}])

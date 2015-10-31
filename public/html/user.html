@@ -1,6 +1,13 @@
 <div ng-controller="userController">
   <h3>{{userName}}</h3>
 
+   <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+      <md-button class="md-raised">Social</md-button>
+      <md-button class="md-raised md-primary">Work</md-button>
+      <md-button class="md-raised md-primary">Personal</md-button>
+      <md-button class="md-raised md-warn">All</md-button>
+    </section>
+
  <md-content class="md-padding">
     <md-card>
       <img class="md-card-image" alt="Washed Out">
@@ -19,8 +26,29 @@
 </md-content>
 
 <md-button class="md-primary md-raised" ng-click="showConfirm($event)" flex-sm="100" flex-md="100" flex-gt-md="auto">
-      Confirm Dialog
+      Create Event
     </md-button>
+
+<div layout="column" ng-cloak class="md-inline-form">
+<form ng-submit="createEvent()">
+<md-content layout-padding layout="row" layout-sm="column">
+    <md-input-container>
+      <label>Title</label>
+      <input ng-model="event.title" placeholder="event name">
+    </md-input-container>
+      <md-input-container>
+        <input type="submit">
+      </md-input-container>
+    </form>
+  </md-content>
+  </form>
+  </div>
+
+
+<!-- <form ng-submit="createEvent()">
+  <input ng-model="event.title" placeholder="event name">
+  <input type="submit">
+</form> -->
 
 </div>
 
