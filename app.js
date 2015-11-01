@@ -118,6 +118,27 @@ app.get('/findAllEvents', function(req, res){
   })
 })
 
+app.get('/findSpecificEvent', function(req, res){
+  var userObj = User.find({_id : req.query.id})
+  console.log("this is the user", userObj)
+  res.send("done")
+})
+
+// app.get('/findSpecificEvent', function(req, res){
+//   console.log("event name test", req.query.eventName)
+//   User.find({_id : req.query.id}, function(){
+//     User.find({events : {eventName : req.query.eventName}}, function(err, docs){
+//       if(err){
+//         res.send(err)
+//       }
+//       else{
+//         console.log(docs)
+//         res.send(docs)
+//       }
+//     })    
+//   })
+// })
+
 // Redirect the user to Facebook for authentication.  When complete,
 // Facebook will redirect the user back to the application at
 //     /auth/facebook/callback

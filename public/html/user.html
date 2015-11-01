@@ -47,12 +47,14 @@
   
   <md-content>
     <md-list>
-      <md-list-item class="md-3-line" ng-repeat="item in userEvents">
+      <md-list-item class="md-3-line" ng-repeat="(index, event) in userEvents">
         <div class="md-list-item-text">
-          <h3>{{item.eventName}}</h3>
+          <h3>{{event.eventName}}</h3>
+          <button ng-click = "goToEvent(index, event)">click me</button>
+          <!-- <md-button ng-click="goToEvent(name, item)" class="md-secondary">Show Details</md-button> -->
+          <md-divider ng-if="!$last"></md-divider>
         </div>
-        <md-button class="md-secondary">Respond</md-button>
-        <md-divider ng-if="!$last"></md-divider>
+        
       </md-list-item>
     </md-list>
   </md-content>

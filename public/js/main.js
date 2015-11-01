@@ -23,17 +23,17 @@ angular.module('Tahona')
 				templateUrl : '/html/user.html',
 				controller : 'mainController'
 			})
-			.when('/event/:eventID', {
+			.when('/user/:userID/event/:anything', {
 				templateUrl : '/html/event.html',
-				controller : 'mainController'
+				controller : 'eventController'
 			})
 			// .when('/error', {
 			// 	templateUrl : 'html/error.html',
 			// 	controller : 'errorController'
 			// })
-			.otherwise({
-				redirectTo : '/error'
-			})
+			// .otherwise({
+			// 	redirectTo : '/error'
+			// })
 	}])
 
 angular.module('Tahona')
@@ -93,6 +93,14 @@ angular.module('Tahona')
 			})
 		}
 
+		$scope.goToEvent = function(index, event){
+			$http.get('/findSpecificEvent?id=' + $routeParams.userID + "&eventName=" + event.eventName)
+				.then(function(returnData){
+					console.log(returnData)
+				})
+			// $location.url('/user/' + $rootScope.currentUser.userID + '/event/' + "random" )
+		}
+
 		
 		
 
@@ -114,4 +122,9 @@ angular.module('Tahona')
 		//     });
   // };	
 
+	}])
+
+angular.module('Tahona')
+	.controller('eventController', ['$scope', '$http', 'authService', '$location', '$routeParams', '$rootScope', '$mdDialog', function($scope, $http, authService, $location, $routeParams, $rootScope, $mdDialog){
+		$scope.testEvent = "testing event works"
 	}])
