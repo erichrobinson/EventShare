@@ -23,7 +23,7 @@ angular.module('Tahona')
 				templateUrl : '/html/user.html',
 				controller : 'mainController'
 			})
-			.when('/user/:userID/event/:anything', {
+			.when('/event/:eventName', {
 				templateUrl : '/html/event.html',
 				controller : 'eventController'
 			})
@@ -93,12 +93,13 @@ angular.module('Tahona')
 			})
 		}
 
+		// FIND EVENT AND ROUTE TO NEW PAGE
 		$scope.goToEvent = function(index, event){
 			$http.get('/findSpecificEvent?id=' + $routeParams.userID + "&eventName=" + event.eventName)
 				.then(function(returnData){
-					console.log(returnData)
+						$rootScope.currentEvent = returnData.data
+						$location.url("/event/" + returnData.data)
 				})
-			// $location.url('/user/' + $rootScope.currentUser.userID + '/event/' + "random" )
 		}
 
 		

@@ -107,7 +107,6 @@ app.post('/createEvent', function(req,res){
 })
 
 app.get('/findAllEvents', function(req, res){
-  console.log(req.query.id)
   User.find({_id : req.query.id}, function(err, doc){
     if(err){
       res.send(err)
@@ -119,9 +118,22 @@ app.get('/findAllEvents', function(req, res){
 })
 
 app.get('/findSpecificEvent', function(req, res){
-  var userObj = User.find({_id : req.query.id})
-  console.log("this is the user", userObj)
-  res.send("done")
+  var matchingEvent 
+  User.find({_id : req.query.id}, function(err, doc){
+    if(err){
+      res.send(err)
+    }
+    else{
+      console.log(doc[0].events)
+      for(var i = 0; i < doc[0].events.length; i ++){
+        if(doc[0].events[i].eventName === req.query.eventName){
+          matchingEvent = req.query.eventName
+        }
+      }
+      res.send(matchingEvent)
+    }
+  })
+  
 })
 
 // app.get('/findSpecificEvent', function(req, res){
