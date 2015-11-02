@@ -29,12 +29,15 @@ passport.use(new FacebookStrategy({
     clientID: 418580371685513,
     clientSecret: "533cfca3455663985fc8eb0a61b4f9f4",
     callbackURL: "http://localhost:3000/auth/facebook/callback",
-    profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
+    profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified', 'picture'],
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ userID: profile.id },{userID : profile.id, username : profile.name.givenName + ' ' + profile.name.familyName, events : []},function(err, user) {
-      console.log()
-      console.log(profile)
+    User.findOrCreate({ userID: profile.id },
+      {userID : profile.id, 
+        username : profile.name.givenName + ' ' + profile.name.familyName, events : [], 
+        email : profile.emails[0].value,
+        picture : profile.photos[0].value},
+        function(err, user) {
       if(err){
           console.log("error")
           done(err)
@@ -133,23 +136,22 @@ app.get('/findSpecificEvent', function(req, res){
       res.send(matchingEvent)
     }
   })
-  
 })
 
-// app.get('/findSpecificEvent', function(req, res){
-//   console.log("event name test", req.query.eventName)
-//   User.find({_id : req.query.id}, function(){
-//     User.find({events : {eventName : req.query.eventName}}, function(err, docs){
-//       if(err){
-//         res.send(err)
-//       }
-//       else{
-//         console.log(docs)
-//         res.send(docs)
-//       }
-//     })    
-//   })
-// })
+app.get('/findAllUsers', function(req, res){
+  console.log(req.query.id)
+  User.find({_id : {$ne : req.query.id}}, function(err, doc){
+    if(err){
+      res.send(err)
+    }
+    else{
+      for(var i = 0; i < doc.length; i++){
+        console.log(doc[i].username)
+      }
+      res.send(doc)
+    }
+  })
+})
 
 // Redirect the user to Facebook for authentication.  When complete,
 // Facebook will redirect the user back to the application at

@@ -69,8 +69,6 @@ angular.module('Tahona')
 		// GET REQUEST TO FIND ALL USER EVENTS
 		$http.get('/findAllEvents?id=' + $routeParams.userID)
 			.then(function(returnData){
-				console.log($routeParams)
-				console.log(returnData.data)
 				$scope.userEvents = returnData.data[0].events
 			})
 
@@ -102,30 +100,41 @@ angular.module('Tahona')
 				})
 		}
 
-		
-		
-
-		// $scope.showConfirm = function(ev) {
-		//     // Appending dialog to document.body to cover sidenav in docs app
-		//     var confirm = $mdDialog.confirm()
-		//           .title('Create an Event')
-		//           .content('<form><input ng-model="newEvent.name" placeholder="event name"> <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker><form>')		        
-		//           .ariaLabel('Lucky day')
-		//           .targetEvent(ev)
-		//           .ok('Submit')
-		//           .cancel('Cancel');
-		//     $mdDialog.show(confirm).then(function() {
-		//       $scope.status = 'You decided to get rid of your debt.';
-		//       console.log("test")
-		//       $scope.createEvent()
-		//     }, function() {
-		//       $scope.status = 'You decided to keep your debt.';
-		//     });
-  // };	
-
+		$scope.showEventCreationModal = function(){
+			$mdDialog.show({
+				controller : 'createEventController',
+				templateUrl : '../html/create-event.html',
+				parent : angular.element(document.body),
+				clickOutsideToClose : true
+			})
+		}
+	
 	}])
 
 angular.module('Tahona')
-	.controller('eventController', ['$scope', '$http', 'authService', '$location', '$routeParams', '$rootScope', '$mdDialog', function($scope, $http, authService, $location, $routeParams, $rootScope, $mdDialog){
+	.controller('createEventController', ['$scope', '$http', 'authService', '$location', '$routeParams', '$rootScope', '$mdDialog', function($scope, $http, authService, $location, $routeParams, $rootScope, $mdDialog){
 		$scope.testEvent = "testing event works"
+		$scope.allUsers = []
+
+		// FIND LIST OF ALL USERS
+		$http.get("/findAllUsers?id=" + $routeParams.userID)
+			.then(function(returnData){	
+				for(var i =0; i < returnData.data.length; i++){
+					$scope.allUsers.push(returnData.data[i])
+				}		
+				console.log(returnData.data.length)
+				console.log($scope.allUsers)
+		})
+
+			
+
 	}])
+
+
+
+
+
+
+
+
+

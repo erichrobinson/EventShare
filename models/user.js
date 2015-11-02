@@ -17,11 +17,11 @@ var userSchema = mongoose.Schema({
     required: true,
     unique: false
   },
-  // email: {
-  //   type: String,
-  //   required: false,
-  //   unique: true
-  // },
+  email: {
+    type: String,
+    required: false,
+    unique: true
+  },
   events : {
     type : Array,
     required: false,
@@ -31,6 +31,9 @@ var userSchema = mongoose.Schema({
     required : true,
     unique: true
   },
+  picture : {
+    type : String
+  }
   // password: {
   //   type: String,
   //   required: true
