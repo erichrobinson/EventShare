@@ -1,9 +1,7 @@
 <div ng-controller="eventController">
-	{{testEvent}}
-	{{currentEvent}}
 	<div layout="row">
 	<div flex class="eventHero">
-		<h3 class="eventDetails">Time</h3><h1 class="eventDetails">/Event Name/</h1><h3 class="eventDetails">Date</h3>
+		<h3 class="eventDetails">Time</h3><h1 class="eventDetails">/{{currentEvent}}/</h1><h3 class="eventDetails">Date</h3>
 	</div>
 </div>
 <div layout="row">
@@ -13,8 +11,9 @@
 	<div flex>
 		
 	</div>
-	<div flex class="black">
-		
+	<div flex >
+		<h3>Tasks</h3>
+		{{eventName}}
 	</div>
 </div>
 </div>

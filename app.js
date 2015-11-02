@@ -100,7 +100,7 @@ app.get('/getUserName', function(req, res){
 app.post('/createEvent', function(req,res){
   User.findOneAndUpdate(
     {_id : req.body.userID},
-    {$push : {events : {eventName : req.body.eventName}}},
+    {$push : {events : {eventName : req.body.eventName, eventDescription : "event push working"}}},
     {safe : true, upsert : true},
     function(err, model){
       console.log(err)

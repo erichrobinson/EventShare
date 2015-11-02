@@ -16,58 +16,29 @@
 	        <label>End Time</label>
 	        <input ng-model="event.endTime">
 	    </md-input-container>
+	    <textarea ng-model="event.description">
+	    </textarea>
 	    <div>
 	    	<md-content>
-	    		<md-contact-chips
-	    			placeholder = "Invites"
+	    	<md-list>
+	    		<md-contact-chips placeholder = "Invites"
+	    			ng-model="selectedContacts"
 	    		>
 	    		</md-contact-chips>
     			<md-list class="fixedRows">
     				<md-subheader class="md-no-sticky">Contacts</md-subheader>
-    				<md-list-item class="md-2-line contact-item" ng-repeat="each in allUsers">
+    				<md-list-item class="md-2-line contact-item" ng-repeat="user in allUsers">
     					<div class="md-list-item-text compact">
-    						<img class="md-avatar"
-    						ng-src="{{each.picture}}">
-	    					<h3>{{each.username}}</h3>
-	    					<p>{{each.email}}</p>    						
+    						<img ng-src="{{user.picture}}">
+	    					<h3>{{user.username}}</h3>
+	    					<p>{{user.email}}</p>
+	    					<button ng-click="addUserToSelected()">+</button> 	
     					</div>
     				</md-list-item>
     			</md-list>    	
 	    	</md-content>
 	    </div>
-      <!-- <div ng-controller="ContactChipDemoCtrl as ctrl" layout="column" ng-cloak>
-  <md-content class="md-padding autocomplete" layout="column">
-    <md-contact-chips
-        ng-model="ctrl.contacts"
-        md-contacts="ctrl.querySearch($query)"
-        md-contact-name="name"
-        md-contact-image="image"
-        md-contact-email="email"
-        md-require-match="true"
-        md-highlight-flags="i"
-        filter-selected="ctrl.filterSelected"
-        placeholder="To">
-    </md-contact-chips>
-    <md-list class="fixedRows">
-      <md-subheader class="md-no-sticky">Contacts</md-subheader>
-      <md-list-item class="md-2-line contact-item" ng-repeat="(index, contact) in ctrl.allContacts"
-          ng-if="ctrl.contacts.indexOf(contact) < 0">
-        <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
-        <div class="md-list-item-text compact">
-          <h3>{{contact.name}}</h3>
-          <p>{{contact.email}}</p>
-        </div>
-      </md-list-item>
-      <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, contact) in ctrl.contacts">
-        <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
-        <div class="md-list-item-text compact">
-          <h3>{{contact.name}}</h3>
-          <p>{{contact.email}}</p>
-        </div>
-      </md-list-item>
-    </md-list>
-  </md-content>
-</div> -->
+	<button ng-click="submitNewEvent()"></button>
     </form>
   </md-content>
 </div>

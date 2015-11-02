@@ -39,18 +39,11 @@ angular.module('Tahona')
 angular.module('Tahona')
 	.controller('mainController', ['$scope', '$http', 'authService', '$location', '$routeParams', '$rootScope', function($scope, $http, authService, $location, $routeParams, $rootScope){
 
-
-
 		authService.authCheck(function(user){
+			console.log('rootScope', $rootScope);
 			$rootScope.currentUser = user
 			if(user){
 				$location.url('/user/' + user._id)
-				// $http.get('/getUserName?id='+$routeParams.userID)
-				// $http.get('/getUserName/')
-				// 	.then(function(returnData){
-				// 		console.log(returnData)
-				// 	})
-
 			}
 		})
 	}])
@@ -58,7 +51,9 @@ angular.module('Tahona')
 angular.module('Tahona')
 	.controller('userController', ['$scope', '$http', 'authService', '$location', '$routeParams', '$rootScope', '$mdDialog', function($scope, $http, authService, $location, $routeParams, $rootScope, $mdDialog){
 
-		$scope.userEvents
+		$scope.allUsers = []
+		$rootScope.allUserEvents
+		$scope.displayEventPreview = false
 
 		// GET REQUEST TO FIND AND SET CURRENT USER 
 		$http.get('/getUserName?id=' + $routeParams.userID)
@@ -69,52 +64,30 @@ angular.module('Tahona')
 		// GET REQUEST TO FIND ALL USER EVENTS
 		$http.get('/findAllEvents?id=' + $routeParams.userID)
 			.then(function(returnData){
-				$scope.userEvents = returnData.data[0].events
+				$rootScope.allUserEvents = returnData.data[0].events
 			})
 
-		// CREATE OBJECT OF USER ID AND SUBMITTED EVENT - POST TO DB
-		$scope.createEvent = function(){
-			console.log($scope.event.title)
-			var testObj = {
-				userID : $routeParams.userID,
-				eventName : $scope.event.title
-			}
-			$http.post('/createEvent', testObj)
-		      	.then(function(returnData){		  
-		      		console.log("returnDataFromServer", returnData)
-		      	})
-		    $http.get('/findAllEvents?id=' + $routeParams.userID)
-				.then(function(returnData){
-					console.log($routeParams)
-					console.log(returnData.data[0].events)
-					$scope.userEvents = returnData.data[0].events
-			})
-		}
+		
 
 		// FIND EVENT AND ROUTE TO NEW PAGE
 		$scope.goToEvent = function(index, event){
 			$http.get('/findSpecificEvent?id=' + $routeParams.userID + "&eventName=" + event.eventName)
-				.then(function(returnData){
-						$rootScope.currentEvent = returnData.data
-						$location.url("/event/" + returnData.data)
+				.then(function(returnData){				
+					$rootScope.currentEvent = returnData.data
+					$location.url("/event/" + returnData.data)
 				})
 		}
 
+		// DISPLAY EVENT CREATION MODAL
 		$scope.showEventCreationModal = function(){
+			
 			$mdDialog.show({
-				controller : 'createEventController',
+				controller : 'userController',
 				templateUrl : '../html/create-event.html',
 				parent : angular.element(document.body),
 				clickOutsideToClose : true
 			})
 		}
-	
-	}])
-
-angular.module('Tahona')
-	.controller('createEventController', ['$scope', '$http', 'authService', '$location', '$routeParams', '$rootScope', '$mdDialog', function($scope, $http, authService, $location, $routeParams, $rootScope, $mdDialog){
-		$scope.testEvent = "testing event works"
-		$scope.allUsers = []
 
 		// FIND LIST OF ALL USERS
 		$http.get("/findAllUsers?id=" + $routeParams.userID)
@@ -126,10 +99,66 @@ angular.module('Tahona')
 				console.log($scope.allUsers)
 		})
 
-			
-
+		// CREATE OBJECT OF USER ID AND SUBMITTED EVENT - POST TO DB
+		$scope.submitNewEvent = function(){
+			var testObj = {
+				userID : $routeParams.userID,
+				eventName : $scope.event.title
+			}
+			$http.post('/createEvent', testObj)
+		      	.then(function(returnData){		  
+		    
+		      	})
+		    $http.get('/findAllEvents?id=' + $routeParams.userID)
+				.then(function(returnData){
+					console.log(returnData.data[0].events)
+					$rootScope.allUserEvents = returnData.data[0].events;					
+			})
+		}
+	
 	}])
 
+angular.module('Tahona')
+	.controller('createEventController', ['$scope', '$http', 'authService', '$location', '$routeParams', '$rootScope', '$mdDialog', function($scope, $http, authService, $location, $routeParams, $rootScope, $mdDialog){
+		$scope.testEvent = "testing event works"
+		// $scope.allUsers = []
+
+		// // FIND LIST OF ALL USERS
+		// $http.get("/findAllUsers?id=" + $routeParams.userID)
+		// 	.then(function(returnData){	
+		// 		for(var i =0; i < returnData.data.length; i++){
+		// 			$scope.allUsers.push(returnData.data[i])
+		// 		}		
+		// 		console.log(returnData.data.length)
+		// 		console.log($scope.allUsers)
+		// })
+
+		// // CREATE OBJECT OF USER ID AND SUBMITTED EVENT - POST TO DB
+		// $scope.submitNewEvent = function(){
+		// 	console.log($scope.event.title)
+		// 	var testObj = {
+		// 		userID : $routeParams.userID,
+		// 		eventName : $scope.event.title
+		// 	}
+		// 	$http.post('/createEvent', testObj)
+		//       	.then(function(returnData){		  
+		//       		console.log("returnDataFromServer", returnData)
+		//       	})
+		//     $http.get('/findAllEvents?id=' + $routeParams.userID)
+		// 		.then(function(returnData){
+		// 			console.log($routeParams)
+		// 			console.log(returnData.data[0].events)
+		// 			$rootScope.allUserEvents = returnData.data[0].events
+		// 	})
+		// }
+
+	}])
+		
+angular.module('Tahona')
+	.controller('eventController', ['$scope', '$http', 'authService', '$location', '$routeParams', '$rootScope', function($scope, $http, authService, $location, $routeParams, $rootScope){
+
+		
+	}])
 
 
 
