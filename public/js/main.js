@@ -178,9 +178,6 @@ angular.module('Tahona')
 		$scope.allUsers = $rootScope.listOfAllUsers
 		$scope.eventHost = $rootScope.currentUser
 
-		console.log($rootScope.currentEvent)
-		console.log($rootScope.currentUser)
-
 		// DISPLAY TASK CREATION MODAL
 		$scope.showTaskCreationModal = function(){
 			
@@ -194,18 +191,20 @@ angular.module('Tahona')
 
 		$scope.submitNewTask = function(){
 			var tempTaskObj = {
+				eventHost : $scope.eventHost,
 				taskName : $scope.task.title
 			}
 			$http.post('/createTask', tempTaskObj)
 		      	.then(function(returnData){
 		      		console.log($scope.eventHost)		  
 		      	})
-		//     $http.get('/findAllTasks?id=' + $routeParams.userID)
-		// 		.then(function(returnData){
-		// 			console.log(returnData.data[0].events)
-		// 			$rootScope.allUserEvents = returnData.data[0].events;
-		// 			console.log($rootScope.allUserEvents)					
-		// 	})
+		    $http.get('/findAllTasks', tempTaskObj)
+				.then(function(returnData){
+					console.log(returnData)
+					// console.log(returnData.data[0].events)
+					// $rootScope.allUserEvents = returnData.data[0].events;
+					// console.log($rootScope.allUserEvents)					
+			})
 		}
 
 		

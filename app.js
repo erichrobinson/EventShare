@@ -110,7 +110,16 @@ app.post('/createEvent', function(req,res){
 })
 
 app.post('/createTask', function(req,res){
-  console.log(req.body)
+  User.find({_id : req.body.eventHost._id}, function(err, doc){
+    // for(var i = 0 ; i < req.body.eventHost.events.length ; i++){
+      console.log(req.body)
+      console.log("/n/n/n This is the second log", req.body.eventHost.events[0])
+      // if(req.body.eventHost.events[i].eventName = req.body.eventName){
+      //   console.log("yes")
+      // }
+    // }
+  })
+  // console.log(req.body.eventHost.events)
   // User.findOneAndUpdate(
   //   {_id : req.body.userID},
   //   {$push : {events : {eventName : req.body.eventName, eventDescription : "event push working", eventType : req.body.eventType}}},
@@ -121,6 +130,17 @@ app.post('/createTask', function(req,res){
   //   )
   res.send("done")
 })
+
+// app.get('/findAll', function(req, res){
+//   User.find({_id : req.query.id}, function(err, doc){
+//     if(err){
+//       res.send(err)
+//     }
+//     else{
+//       res.send(doc)
+//     }
+//   })
+// })
 
 app.get('/findAllEvents', function(req, res){
   User.find({_id : req.query.id}, function(err, doc){
@@ -140,7 +160,6 @@ app.get('/findSpecificEvent', function(req, res){
       res.send(err)
     }
     else{
-      console.log(doc[0].events)
       for(var i = 0; i < doc[0].events.length; i ++){
         if(doc[0].events[i].eventName === req.query.eventName){
           matchingEvent = req.query.eventName
@@ -152,14 +171,14 @@ app.get('/findSpecificEvent', function(req, res){
 })
 
 app.get('/findAllUsers', function(req, res){
-  console.log(req.query.id)
+  
   User.find({_id : {$ne : req.query.id}}, function(err, doc){
     if(err){
       res.send(err)
     }
     else{
       for(var i = 0; i < doc.length; i++){
-        console.log(doc[i].username)
+        
       }
       res.send(doc)
     }
