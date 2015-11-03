@@ -100,12 +100,25 @@ app.get('/getUserName', function(req, res){
 app.post('/createEvent', function(req,res){
   User.findOneAndUpdate(
     {_id : req.body.userID},
-    {$push : {events : {eventName : req.body.eventName, eventDescription : "event push working"}}},
+    {$push : {events : {eventName : req.body.eventName, eventDescription : "event push working", eventType : req.body.eventType}}},
     {safe : true, upsert : true},
     function(err, model){
       console.log(err)
     }
     )
+  res.send("done")
+})
+
+app.post('/createTask', function(req,res){
+  console.log(req.body)
+  // User.findOneAndUpdate(
+  //   {_id : req.body.userID},
+  //   {$push : {events : {eventName : req.body.eventName, eventDescription : "event push working", eventType : req.body.eventType}}},
+  //   {safe : true, upsert : true},
+  //   function(err, model){
+  //     console.log(err)
+  //   }
+  //   )
   res.send("done")
 })
 

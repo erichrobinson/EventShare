@@ -1,34 +1,20 @@
 <div layout="column" ng-cloak class="md-inline-form">
-
-	<div>
-		<h1>Event Type</h1>
-		<md-content>
-			<md-button ng-click="setEventType('social')">Social</md-button>
-		    <md-button ng-click="setEventType('work')">Work</md-button>		    
-		    <md-button ng-click="setEventType('personal')">Personal</md-button>
-	    </md-content>
-
-	</div>
 	
   <md-content layout-padding layout="row" layout-sm="column">
     <md-input-container>
-      <label>Event Name</label>
-      <input ng-model="event.title">
+      <label>Task Name</label>
+      <input ng-model="task.title">
     </md-input-container>
   </md-content>
 
   <md-content layout-padding>
     <form name="eventForm">
-        <md-datepicker ng-model="event.date" md-placeholder="Enter date"></md-datepicker>
+        <md-datepicker ng-model="task.date" md-placeholder="Enter date"></md-datepicker>
         <md-input-container>
 	        <label>Start Time</label>
-	        <input ng-model="event.startTime">
+	        <input ng-model="task.startTime">
         </md-input-container>
-        <md-input-container>
-	        <label>End Time</label>
-	        <input ng-model="event.endTime">
-	    </md-input-container>
-	    <textarea ng-model="event.description">
+	    <textarea ng-model="task.description">
 	    </textarea>
 	    <div>
 	    	<md-content>
@@ -49,7 +35,7 @@
     			</md-list>    	
 	    	</md-content>
 	    </div>
-	<button ng-click="submitNewEvent()"></button>
+	<button ng-click="submitNewTask()"></button>
     </form>
   </md-content>
 </div>
