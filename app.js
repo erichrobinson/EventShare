@@ -100,7 +100,7 @@ app.get('/getUserName', function(req, res){
 app.post('/createEvent', function(req,res){
   User.findOneAndUpdate(
     {_id : req.body.userID},
-    {$push : {events : {eventName : req.body.eventName, eventDescription : "event push working", eventType : req.body.eventType}}},
+    {$push : {events : {eventName : req.body.eventName, eventDescription : "event push working", eventType : req.body.eventType, tasks : ["tempTask"]}}},
     {safe : true, upsert : true},
     function(err, model){
       console.log(err)
@@ -111,36 +111,33 @@ app.post('/createEvent', function(req,res){
 
 app.post('/createTask', function(req,res){
   User.find({_id : req.body.eventHost._id}, function(err, doc){
-    // for(var i = 0 ; i < req.body.eventHost.events.length ; i++){
-      console.log(req.body)
-      console.log("/n/n/n This is the second log", req.body.eventHost.events[0])
-      // if(req.body.eventHost.events[i].eventName = req.body.eventName){
-      //   console.log("yes")
-      // }
-    // }
+    for(var i = 0 ; i < req.body.eventHost.events.length ; i++){
+      // Search for a matching event based on the current event name
+      if(req.body.eventHost.events[i].eventName === req.body.currentEvent){
+        doc[0].events[i].tasks.push(req.body.taskName)
+        doc[0].markModified('events') 
+        doc[0].save(function(err){
+          if(err){
+            console.log(err)
+          }
+        })
+      }
+    }
   })
-  // console.log(req.body.eventHost.events)
-  // User.findOneAndUpdate(
-  //   {_id : req.body.userID},
-  //   {$push : {events : {eventName : req.body.eventName, eventDescription : "event push working", eventType : req.body.eventType}}},
-  //   {safe : true, upsert : true},
-  //   function(err, model){
-  //     console.log(err)
-  //   }
-  //   )
   res.send("done")
 })
 
-// app.get('/findAll', function(req, res){
-//   User.find({_id : req.query.id}, function(err, doc){
-//     if(err){
-//       res.send(err)
-//     }
-//     else{
-//       res.send(doc)
-//     }
-//   })
-// })
+app.get('/findAllTasks', function(req, res){
+  console.log(req.query)
+  User.find({_id : req.query.id}, function(err, doc){
+    if(err){
+      res.send(err)
+    }
+    else{
+      res.send(doc)
+    }
+  })
+})
 
 app.get('/findAllEvents', function(req, res){
   User.find({_id : req.query.id}, function(err, doc){

@@ -65,9 +65,7 @@ angular.module('Tahona')
 		$http.get('/findAllEvents?id=' + $routeParams.userID)
 			.then(function(returnData){
 				$rootScope.allUserEvents = returnData.data[0].events
-			})
-
-		
+			})		
 
 		// FIND EVENT AND ROUTE TO NEW PAGE
 		$scope.goToEvent = function(index, event){
@@ -178,6 +176,7 @@ angular.module('Tahona')
 		$scope.allUsers = $rootScope.listOfAllUsers
 		$scope.eventHost = $rootScope.currentUser
 
+
 		// DISPLAY TASK CREATION MODAL
 		$scope.showTaskCreationModal = function(){
 			
@@ -189,21 +188,23 @@ angular.module('Tahona')
 			})
 		}
 
+		// CREATE A NEW TASK
 		$scope.submitNewTask = function(){
+			console.log($scope.eventHost)
 			var tempTaskObj = {
 				eventHost : $scope.eventHost,
-				taskName : $scope.task.title
+				taskName : $scope.task.title,
+				currentEvent : $rootScope.currentEvent
 			}
 			$http.post('/createTask', tempTaskObj)
-		      	.then(function(returnData){
-		      		console.log($scope.eventHost)		  
-		      	})
-		    $http.get('/findAllTasks', tempTaskObj)
+		      	.then(function(returnData){})
+		    $http.get('/findAllTasks?id=' + $scope.eventHost._id )
 				.then(function(returnData){
-					console.log(returnData)
+					// console.log(returnData)
 					// console.log(returnData.data[0].events)
-					// $rootScope.allUserEvents = returnData.data[0].events;
-					// console.log($rootScope.allUserEvents)					
+					$rootScope.allUserEvents = returnData.data[0].events;
+					// console.log($rootScope.allUserEvents)
+					console.log('scope', $scope)		
 			})
 		}
 
