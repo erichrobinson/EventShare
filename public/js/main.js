@@ -165,6 +165,13 @@ angular.module('Tahona')
 			})
 		}
 
+		// ADD USERS TO NEW EVENT
+		$scope.selectedContacts = []
+
+		$scope.addUserToEvent = function(user){
+			$scope.selectedContacts.push(user)
+		}
+
 	}])
 
 
