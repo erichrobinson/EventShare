@@ -192,7 +192,13 @@ angular.module('Tahona')
 		    $http.get('/findAllTasks?id=' + $scope.eventHost._id )
 				.then(function(returnData){
 					console.log(returnData.data[0].events)
-					$rootScope.allUserEvents = returnData.data[0].events		
+					$rootScope.allUserEvents = returnData.data[0].events
+					for(var i =0; i < returnData.data[0].events.length; i++){
+						if(returnData.data[0].events[i].eventName === $rootScope.currentEvent){
+							$rootScope.currentTasks = returnData.data[0].events[i].tasks
+						}
+					}
+					// $rootScope.currentTasks = returnData.data[0].events[?].tasks
 			})
 		}
 
