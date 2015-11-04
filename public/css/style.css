@@ -1,3 +1,86 @@
+/* ALIGNMENT */
+.align-center {
+	text-align: center;
+}
+
+.eighty-percent-width{
+	width: 80vw;
+	margin: 0 auto;
+}
+
+/* BACKGROUND COLORS */
+.bg-red {
+	background-color: #e74c3c
+}
+
+/* IMAGES */
+.img-hero {
+	width: 100vw;
+	max-height: 700px;
+}
+
+.user-hero {
+	width: 100vw;
+	max-height: 350px;
+	opacity: 0.3;
+}
+
+.round-icon-default {
+	width: 125px;
+}
+
+
+
+
+/* LINKS */
+a {
+	text-decoration: none;
+}
+
+/* FONTS */
+
+/*** Colors ***/
+.txt-white {
+	color: white;
+}
+
+.txt-red {
+	color: #e74c3c;
+}
+/*** Families ***/
+
+
+/*** Sizes ***/
+.txt-lrg {
+	font-size: 24px;
+}
+
+.txt-xlrg {
+	font-size: 48px;
+}
+
+/*** Weight ***/
+.txt-bld {
+	font-weight: bold;
+}
+
+/* HOME PAGE */
+.hero-text {
+	position: relative;
+	top: -200px;
+}
+
+/* USER PAGE */
+.home-section {
+	height: 350px;
+}
+
+.user-hero-info {
+	position: relative;
+	top: -175px;
+}
+
+
 .red {
 	background-color: red;
 	height: 100px;
@@ -7,8 +90,8 @@
 	height: 100px;
 }
 .green {
-	background-color: green;
-	height: 100px;
+	background-color: #e74c3c;
+	height: 80px;
 }
 .eventHero {
 	height: 300px;

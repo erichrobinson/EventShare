@@ -15,10 +15,10 @@ angular.module('Tahona')
 	.config(['$routeProvider', function($routeProvider){
 		// No need to define #, it is assumed
 		$routeProvider
-			// .when('/', {
-			// 	templateUrl : '/html/home.html',
-			// 	controller : 'mainController'
-			// })
+			.when('/', {
+				templateUrl : '/html/index.html',
+				controller : 'mainController'
+			})
 			.when('/user/:userID', {
 				templateUrl : '/html/user.html',
 				controller : 'mainController'

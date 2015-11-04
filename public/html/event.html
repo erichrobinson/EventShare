@@ -1,5 +1,8 @@
 <div ng-controller="eventController">
 	<div layout="row">
+  <div class="hero-container">
+    <img class="user-hero" src="../img/event-bg.jpg">
+  </div>
 	<div flex class="eventHero">
 		<h3 class="eventDetails">Time</h3><h1 class="eventDetails">/{{currentEvent}}/</h1><h3 class="eventDetails">Date</h3>
 	</div>
@@ -18,7 +21,7 @@
     </md-button>
     <div ng-repeat="event in $root.allUserEvents">
     	<div ng-repeat="task in event.tasks track by $index">
-    	<div ng-show="showEvent">
+    	<div>
     	<md-checkbox>
           {{task.taskName}}
         </md-checkbox>
