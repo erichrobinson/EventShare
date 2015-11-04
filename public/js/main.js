@@ -75,8 +75,10 @@ angular.module('Tahona')
 		// FIND EVENT AND ROUTE TO NEW PAGE
 		$scope.goToEvent = function(index, event){
 			$http.get('/findSpecificEvent?id=' + $routeParams.userID + "&eventName=" + event.eventName)
-				.then(function(returnData){			
-					$rootScope.currentEvent = returnData.data
+				.then(function(returnData){
+				console.log(returnData)			
+					$rootScope.currentEvent = returnData.data.eventName
+					$rootScope.currentTasks = returnData.data.tasks
 					$location.url("/event/" + returnData.data)  
 				})
 		}
@@ -116,7 +118,8 @@ angular.module('Tahona')
 			var tempEventObj = {
 				userID : $routeParams.userID,
 				eventName : $scope.event.title,
-				eventType : $scope.tempEventType
+				eventType : $scope.tempEventType,
+				eventDescription : $scope.event.description
 			}
 			$http.post('/createEvent', tempEventObj)
 		      	.then(function(returnData){		  

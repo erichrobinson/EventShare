@@ -26,19 +26,21 @@
 
   <div class="eighty-percent-width event-list">
    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-      <md-button flex="15"class="md-raised md-primary">Social</md-button>
-      <md-button flex="15" class="md-raised md-primary">Work</md-button>
-      <md-button flex="15" class="md-raised md-primary">Personal</md-button>
-      <md-button flex="15" class="md-raised md-primary">All</md-button>
+      <md-button flex="15"class="md-raised md-primary" ng-click="selectedView = 'social'">Social</md-button>
+      <md-button flex="15" class="md-raised md-primary" ng-click="selectedView = 'work'">Work</md-button>
+      <md-button flex="15" class="md-raised md-primary" ng-click="selectedView = 'personal'">Personal</md-button>
+      <md-button flex="15" class="md-raised md-primary" ng-click="selectedView = ''">All</md-button>
       <md-button flex="15" class="md-warn md-raised" ng-click="showEventCreationModal()">
       Create Event
     </md-button>
     </section>
   <md-content>
     <md-list>
-      <md-list-item class="md-3-line" ng-repeat="userEvent in allUserEvents">
+      <md-list-item class="md-3-line" ng-repeat="userEvent in allUserEvents | filter : selectedView">
         <div class="md-list-item-text">
           <h3>{{userEvent.eventName}}</h3>
+          <p>{{userEvent}}</p>
+          <p>{{userEvent.eventType}}</p>
           <button ng-click = "goToEvent(index, userEvent)">Go To Event</button>
           <!-- <md-button ng-click="goToEvent(name, item)" class="md-secondary">Show Details</md-button> -->
           <button ng-click="displayEventPreview = !displayEventPreview">Preview Event</button>

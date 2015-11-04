@@ -19,8 +19,7 @@
 		<md-button class="md-primary md-raised" ng-click="showTaskCreationModal()" flex-sm="100" flex-md="100" flex-gt-md="auto">
       Create Task
     </md-button>
-    <div ng-repeat="event in $root.allUserEvents">
-    	<div ng-repeat="task in event.tasks track by $index">
+    <div ng-repeat="task in currentTasks">
     	<div>
     	<md-checkbox>
           {{task.taskName}}
