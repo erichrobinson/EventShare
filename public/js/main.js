@@ -70,9 +70,9 @@ angular.module('Tahona')
 		// FIND EVENT AND ROUTE TO NEW PAGE
 		$scope.goToEvent = function(index, event){
 			$http.get('/findSpecificEvent?id=' + $routeParams.userID + "&eventName=" + event.eventName)
-				.then(function(returnData){				
+				.then(function(returnData){			
 					$rootScope.currentEvent = returnData.data
-					$location.url("/event/" + returnData.data)
+					$location.url("/event/" + returnData.data)  
 				})
 		}
 
@@ -136,38 +136,6 @@ angular.module('Tahona')
 		
 		$scope.testEvent = "testing event works"
 
-		
-		// $scope.allUsers = []
-
-		// // FIND LIST OF ALL USERS
-		// $http.get("/findAllUsers?id=" + $routeParams.userID)
-		// 	.then(function(returnData){	
-		// 		for(var i =0; i < returnData.data.length; i++){
-		// 			$scope.allUsers.push(returnData.data[i])
-		// 		}		
-		// 		console.log(returnData.data.length)
-		// 		console.log($scope.allUsers)
-		// })
-
-		// // CREATE OBJECT OF USER ID AND SUBMITTED EVENT - POST TO DB
-		// $scope.submitNewEvent = function(){
-		// 	console.log($scope.event.title)
-		// 	var testObj = {
-		// 		userID : $routeParams.userID,
-		// 		eventName : $scope.event.title
-		// 	}
-		// 	$http.post('/createEvent', testObj)
-		//       	.then(function(returnData){		  
-		//       		console.log("returnDataFromServer", returnData)
-		//       	})
-		//     $http.get('/findAllEvents?id=' + $routeParams.userID)
-		// 		.then(function(returnData){
-		// 			console.log($routeParams)
-		// 			console.log(returnData.data[0].events)
-		// 			$rootScope.allUserEvents = returnData.data[0].events
-		// 	})
-		// }
-
 	}])
 		
 angular.module('Tahona')
@@ -175,6 +143,7 @@ angular.module('Tahona')
 
 		$scope.allUsers = $rootScope.listOfAllUsers
 		$scope.eventHost = $rootScope.currentUser
+		$scope.showEvent = true
 
 
 		// DISPLAY TASK CREATION MODAL
@@ -190,25 +159,38 @@ angular.module('Tahona')
 
 		// CREATE A NEW TASK
 		$scope.submitNewTask = function(){
+			$scope.task.urgent = false
 			console.log($scope.eventHost)
 			var tempTaskObj = {
 				eventHost : $scope.eventHost,
 				taskName : $scope.task.title,
+				taskUsers : [],
+				taskUrgent : $scope.task.urgent,
 				currentEvent : $rootScope.currentEvent
 			}
 			$http.post('/createTask', tempTaskObj)
 		      	.then(function(returnData){})
 		    $http.get('/findAllTasks?id=' + $scope.eventHost._id )
 				.then(function(returnData){
-					// console.log(returnData)
-					// console.log(returnData.data[0].events)
-					$rootScope.allUserEvents = returnData.data[0].events;
-					// console.log($rootScope.allUserEvents)
-					console.log('scope', $scope)		
+					console.log(returnData.data[0].events)
+					$rootScope.allUserEvents = returnData.data[0].events		
 			})
 		}
 
-		
+		$scope.removeTask = function(){
+			var tempRemoveObj = {
+				task : this.task,
+				user : $rootScope.currentUser,
+				currentEvent : $rootScope.currentEvent
+			}
+			console.log($rootScope.currentUser)
+			$scope.showEvent = !$scope.showEvent
+			$http.post('/removeTask', tempRemoveObj)
+				.then(function(){
+					console.log("success")
+				})
+		}
+
 	}])
 
 

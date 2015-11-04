@@ -17,9 +17,19 @@
       Create Task
     </md-button>
     <div ng-repeat="event in $root.allUserEvents">
-    	{{event.eventName}}
     	<div ng-repeat="task in event.tasks track by $index">
-    		{{task}}
+    	<div ng-show="showEvent">
+    	<md-checkbox>
+          {{task.taskName}}
+        </md-checkbox>
+        <md-button>
+        	Details
+        </md-button>
+        <md-button class="md-warn" ng-click="removeTask()">
+         	X
+         </md-button>
+    	</div>
+    	
     	</div>
     </div>
 	</div>

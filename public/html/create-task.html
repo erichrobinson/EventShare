@@ -16,6 +16,9 @@
         </md-input-container>
 	    <textarea ng-model="task.description">
 	    </textarea>
+	    <md-button class="md-raised md-warn"ng-click="task.urgent = !task.urgent">
+	    	Urgent
+	    </md-button>
 	    <div>
 	    	<md-content>
 	    	<md-list>

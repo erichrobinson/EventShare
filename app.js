@@ -100,7 +100,7 @@ app.get('/getUserName', function(req, res){
 app.post('/createEvent', function(req,res){
   User.findOneAndUpdate(
     {_id : req.body.userID},
-    {$push : {events : {eventName : req.body.eventName, eventDescription : "event push working", eventType : req.body.eventType, tasks : ["tempTask"]}}},
+    {$push : {events : {eventName : req.body.eventName, eventDescription : "event push working", eventType : req.body.eventType, tasks : []}}},
     {safe : true, upsert : true},
     function(err, model){
       console.log(err)
@@ -114,7 +114,8 @@ app.post('/createTask', function(req,res){
     for(var i = 0 ; i < req.body.eventHost.events.length ; i++){
       // Search for a matching event based on the current event name
       if(req.body.eventHost.events[i].eventName === req.body.currentEvent){
-        doc[0].events[i].tasks.push(req.body.taskName)
+        // Save task in matching event
+        doc[0].events[i].tasks.push({taskUsers : req.body.taskUsers, taskName : req.body.taskName, taskComplete : false, taskUrgent : req.body.taskUrgent})
         doc[0].markModified('events') 
         doc[0].save(function(err){
           if(err){
@@ -123,8 +124,36 @@ app.post('/createTask', function(req,res){
         })
       }
     }
+
   })
   res.send("done")
+})
+
+app.post('/removeTask', function(req, res){
+  User.findOne({_id : req.body.user._id}, function(err, doc){
+    // Look over every item in user events and search for a matching event name
+    for(var i=0 ; i < req.body.user.events.length; i++){
+      if(req.body.user.events[i].eventName === req.body.currentEvent){
+        // Look over every item in iser event taks and search for a matching task name
+        for(var x = 0; x < req.body.user.events[i].tasks.length; x++){
+          if(req.body.user.events[i].tasks[x].taskName === req.body.task.taskName){
+           // Delete task in matching event
+           doc.events[i].tasks.splice(x, 1)
+           doc.markModified('events')
+           doc.save(function(err){
+            if(err){
+              console.log(err)
+            }
+           })
+          
+          }
+        }
+      }
+    }
+  })
+  
+  res.send("done")
+
 })
 
 app.get('/findAllTasks', function(req, res){
