@@ -159,6 +159,7 @@ angular.module('Tahona')
 				index : indexOfEvent,
 				user : $rootScope.currentUser._id,
 				event : eventToRemove,
+				allUsers : $scope.updatedUsers
 			}
 			$http.post('/removeEvent', tempRemoveObj)
 				.then(function(returnData){

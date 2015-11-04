@@ -204,18 +204,22 @@ app.get('/findSpecificEvent', function(req, res){
 })
 
 app.post('/removeEvent', function(req, res){
-  // console.log(req.body)
-  User.findOne({_id : req.body.user}, function(err, doc){
-    console.log("PRE", doc)
-    doc.events.splice(req.body.index, 1)
-    doc.markModified('events')
-    doc.save(function(err){
-      if(err){
-        console.log(err)
+  for(var i = 0; i < req.body.allUsers.length; i++){
+    User.findOne({_id : req.body.allUsers[i]._id}, function(err, doc){
+      for(var x = 0; x < req.body.allUsers.length; x++){
+        if(doc.events[x] && doc.events[x].eventName === req.body.event.eventName){
+          doc.events.splice(x, 1)
+          doc.markModified('events')
+          doc.save(function(err){
+            if(err){
+              console.log(err)
+            }
+          })
+        }
       }
     })
-    console.log("POST", doc)
-  })
+    
+  }
   res.send("done")
 })
 
