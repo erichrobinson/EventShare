@@ -17,6 +17,11 @@
 	background-color: #e74c3c;
 }
 
+/* BORDERS */
+.no-border{
+	border-bottom: 0px;
+}
+
 /* IMAGES */
 .img-hero {
 	width: 100vw;

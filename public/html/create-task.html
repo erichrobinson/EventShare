@@ -22,17 +22,23 @@
 	    <div>
 	    	<md-content>
 	    	<md-list>
-	    		<md-contact-chips placeholder = "Invites"
-	    			ng-model="selectedContacts"
-	    		>
-	    		</md-contact-chips>
+	    		<div style="height: 100px;" ng-repeat="user in selectedContacts">
+            <img src="{{user.picture}}">  
+            {{user.username}}
+          </div>
+          <md-input-container>
+            <label>Add Invites</label>
+            <input ng-model="filterContacts">
+          </md-input-container>
     			<md-list class="fixedRows">
     				<md-subheader class="md-no-sticky">Contacts</md-subheader>
-    				<md-list-item class="md-2-line contact-item" ng-repeat="user in allUsers">
+    				<md-list-item class="md-2-line contact-item" ng-repeat="user in updatedUsers | filter : filterContacts">
     					<div class="md-list-item-text compact">
-    						<img ng-src="{{user.picture}}">
-	    					<h3>{{user.username}}</h3>
-	    					<p>{{user.email}}</p>  					
+                <md-button ng-click="addUserToTask(user)">
+      						<img ng-src="{{user.picture}}">
+  	    					<h3>{{user.username}}</h3>
+  	    					<p>{{user.email}}</p>  	
+                </md-button>				
     					</div>
     				</md-list-item>
     			</md-list>    	

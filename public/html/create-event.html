@@ -1,4 +1,4 @@
-<div layout="column" ng-cloak class="md-inline-form" >
+<div layout="column" ng-cloak class="md-inline-form">
 
 	<div>
 		<h1>Event Type</h1>
@@ -32,9 +32,6 @@
 	    </textarea>
 	    	<md-content>
 	    	<md-list>
-	    		<!-- <md-contact-chips placeholder = "Invites"
-	    			ng-model="selectedContacts"
-	    		> -->
 	    		<div style="height: 100px;" ng-repeat="user in selectedContacts">
 	    			<img src="{{user.picture}}">	
 	    			{{user.username}}
@@ -43,7 +40,6 @@
 	    			<label>Add Invites</label>
 	    			<input ng-model="filterContacts">
 	    		</md-input-container>
-	    		</md-contact-chips>
     			<md-list class="fixedRows">
     				<md-subheader class="md-no-sticky">Contacts</md-subheader>
     				<md-list-item class="md-2-line contact-item" ng-repeat="user in updatedUsers | filter : filterContacts">

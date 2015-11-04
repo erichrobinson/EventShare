@@ -121,12 +121,17 @@ angular.module('Tahona')
 
 		// CREATE OBJECT OF USER ID AND SUBMITTED EVENT - POST TO DB
 		$scope.submitNewEvent = function(){
+
+			$scope.selectedContacts.push($rootScope.currentUser)
+			console.log($scope.selectedContacts)
+
 			var tempEventObj = {
 				userID : $routeParams.userID,
 				eventName : $scope.event.title,
 				eventType : $scope.tempEventType,
 				eventDescription : $scope.event.description,
-				host : $rootScope.currentUser.username
+				host : $rootScope.currentUser.username,
+				invites : $scope.selectedContacts
 			}
 			$http.post('/createEvent', tempEventObj)
 		      	.then(function(returnData){		  
@@ -138,6 +143,8 @@ angular.module('Tahona')
 					$rootScope.allUserEvents = returnData.data[0].events;
 					console.log($rootScope.allUserEvents)					
 			})
+			$mdDialog.hide()
+			
 		}
 
 		$scope.setEventType = function(eventType){
@@ -190,6 +197,19 @@ angular.module('Tahona')
 		$scope.eventHost = $rootScope.currentUser
 		$scope.showEvent = true
 		$scope.urgent = false
+		$scope.updatedUsers = []
+		$scope.selectedContacts = []
+
+		$http.get('/updateAllUsers')
+			.then(function(returnData){
+				for(var i =0; i < returnData.data.length; i++){
+					$scope.updatedUsers.push(returnData.data[i])
+				}
+			})
+
+		$scope.addUserToTask = function(user){
+			$scope.selectedContacts.push(user)
+		}	
 
 		$scope.toggleUrgent = function(){
 			$scope.urgent = !$scope.urgent
@@ -210,11 +230,10 @@ angular.module('Tahona')
 		// CREATE A NEW TASK
 		$scope.submitNewTask = function(){
 			$scope.task.urgent = false
-			console.log($scope.eventHost)
 			var tempTaskObj = {
 				eventHost : $scope.eventHost,
 				taskName : $scope.task.title,
-				taskUsers : [],
+				taskUsers : $scope.selectedContacts,
 				taskUrgent : $scope.urgent,
 				currentEvent : $rootScope.currentEvent
 			}
@@ -231,6 +250,7 @@ angular.module('Tahona')
 						}
 					}
 			})
+			$mdDialog.hide()
 		}
 
 		// REMOVE A TASK

@@ -98,14 +98,20 @@ app.get('/getUserName', function(req, res){
 })
 
 app.post('/createEvent', function(req,res){
-  User.findOneAndUpdate(
-    {_id : req.body.userID},
-    {$push : {events : {host : req.body.host, eventName : req.body.eventName, eventDescription : req.body.eventDescription, eventType : req.body.eventType, tasks : []}}},
+  var userList = []
+  for(var i = 0; i < req.body.invites.length; i++){
+    userList.push(req.body.invites[i]._id)
+  }
+  for(var i=0; i < userList.length; i++){
+    User.findOneAndUpdate(
+    {_id : userList[i]},
+    {$push : {events : {invites: req.body.invites, host : req.body.host, eventName : req.body.eventName, eventDescription : req.body.eventDescription, eventType : req.body.eventType, tasks : []}}},
     {safe : true, upsert : true},
     function(err, model){
       console.log(err)
     }
     )
+  }
   res.send("done")
 })
 
