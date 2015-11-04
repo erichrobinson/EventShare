@@ -197,6 +197,12 @@ app.get('/findSpecificEvent', function(req, res){
   })
 })
 
+app.get('/updateAllUsers', function(req, res){
+  User.find({}, function(err, doc){
+    res.send(doc)
+  })
+})
+
 app.get('/findAllUsers', function(req, res){
   
   User.find({_id : {$ne : req.query.id}}, function(err, doc){

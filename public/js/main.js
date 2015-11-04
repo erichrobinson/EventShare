@@ -54,15 +54,21 @@ angular.module('Tahona')
 		$rootScope.listOfAllUsers = $scope.allUsers
 		$rootScope.allUserEvents
 		$scope.displayEventPreview = false
-
+		$scope.updatedUsers = []
+		
+		// GET UPDATED LIST OF ALL SITE USERS - LOGGED IN OR NOT 
+		$http.get('/updateAllUsers')
+			.then(function(returnData){
+				for(var i =0; i < returnData.data.length; i++){
+					$scope.updatedUsers.push(returnData.data[i])
+				}
+			})
 
 		// GET REQUEST TO FIND AND SET CURRENT USER 
 		$http.get('/getUserName?id=' + $routeParams.userID)
 			.then(function(returnData){
 				$scope.userName = $rootScope.currentUser.username
-				console.log(returnData.data[0].events)
 				for(var i = 0; i < returnData.data[0].events.length; i++){
-					console.log("events")
 				}
 			})
 
@@ -85,7 +91,7 @@ angular.module('Tahona')
 
 		// DISPLAY EVENT CREATION MODAL
 		$scope.showEventCreationModal = function(){
-			
+
 			$mdDialog.show({
 				controller : 'userController',
 				templateUrl : '../html/create-event.html',
