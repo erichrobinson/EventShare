@@ -11,12 +11,12 @@
     <form name="eventForm">
         <md-datepicker ng-model="task.date" md-placeholder="Enter date"></md-datepicker>
         <md-input-container>
-	        <label>Start Time</label>
-	        <input ng-model="task.startTime">
+	        <label>End Time</label>
+	        <input ng-model="task.endTime">
         </md-input-container>
 	    <textarea ng-model="task.description">
 	    </textarea>
-	    <md-button class="md-raised md-warn"ng-click="task.urgent = !task.urgent">
+	    <md-button class="md-raised md-warn" ng-click="toggleUrgent()">
 	    	Urgent
 	    </md-button>
 	    <div>

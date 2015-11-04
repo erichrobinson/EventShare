@@ -1,21 +1,21 @@
 <div ng-controller="eventController">
 	<div layout="row">
-  <div class="hero-container">
-    <img class="user-hero" src="../img/event-bg.jpg">
+  <div class="hero-container bg-red-light1 home-section">
+  
   </div>
 	<div flex class="eventHero">
 		<h3 class="eventDetails">Time</h3><h1 class="eventDetails">/{{currentEvent}}/</h1><h3 class="eventDetails">Date</h3>
 	</div>
 </div>
-<div layout="row">
-	<div flex class="red">
-		
+<div layout="row" >
+	<div flex="33"class="align-center">
+		<h2>Description</h2>
 	</div>
-	<div flex>
-		
+	<div flex="33"class="align-center">
+		<h2>Invites</h2>
 	</div>
-	<div flex >
-		<h3>Tasks</h3>
+	<div flex="33" class="align-center">
+		<h2>Tasks</h2>
 		<md-button class="md-primary md-raised" ng-click="showTaskCreationModal()" flex-sm="100" flex-md="100" flex-gt-md="auto">
       Create Task
     </md-button>

@@ -10,7 +10,11 @@
 
 /* BACKGROUND COLORS */
 .bg-red {
-	background-color: #e74c3c
+	background-color: #c0392b;
+}
+
+.bg-red-light1 {
+	background-color: #e74c3c;
 }
 
 /* IMAGES */
@@ -64,6 +68,11 @@ a {
 	font-weight: bold;
 }
 
+/* EVENT MODAL */
+.event-modal {
+	width: 400px;
+}
+
 /* HOME PAGE */
 .hero-text {
 	position: relative;
@@ -75,10 +84,16 @@ a {
 	height: 350px;
 }
 
+.event-list {
+	position: relative;
+	top: -200px;
+}
+
 .user-hero-info {
 	position: relative;
 	top: -175px;
 }
+
 
 
 .red {

@@ -1,16 +1,30 @@
 <div ng-controller="userController">
-  <div class="hero-container">
-  <img class="user-hero"src="../img/user-bg.jpg">
+  <div class="hero-container bg-red-light1 home-section">
+  <!-- <img class="user-hero"src="../img/user-bg.jpg"> -->
 </div>
 <div class="align-center user-hero-info" layout="row">
-  <div flex="33">{{userName}}</div>
+  <div flex="33"><h2>{{userName}}</h2></div>
   <div flex="33">
-    testing
+    <span style="background-color: grey; width: 200px; height: 200px; border-radius: 100%; display: inline-block; position: relative; top: -100px;"></span>
   </div>
-  <div flex="33">testing</div>
+  <div flex="33">
+    <h2>Tasks</h2>
+    <table>
+      <tr>
+        <th>Total</th>
+        <th>Urgent</th>
+        <th>Ending</th>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    </table>
+  </div>
 </div>
 
-  <div class="eighty-percent-width">
+  <div class="eighty-percent-width event-list">
    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
       <md-button flex="15"class="md-raised md-primary">Social</md-button>
       <md-button flex="15" class="md-raised md-primary">Work</md-button>

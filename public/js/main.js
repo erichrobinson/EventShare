@@ -55,10 +55,15 @@ angular.module('Tahona')
 		$rootScope.allUserEvents
 		$scope.displayEventPreview = false
 
+
 		// GET REQUEST TO FIND AND SET CURRENT USER 
 		$http.get('/getUserName?id=' + $routeParams.userID)
 			.then(function(returnData){
 				$scope.userName = $rootScope.currentUser.username
+				console.log(returnData.data[0].events)
+				for(var i = 0; i < returnData.data[0].events.length; i++){
+					console.log("events")
+				}
 			})
 
 		// GET REQUEST TO FIND ALL USER EVENTS
@@ -144,7 +149,12 @@ angular.module('Tahona')
 		$scope.allUsers = $rootScope.listOfAllUsers
 		$scope.eventHost = $rootScope.currentUser
 		$scope.showEvent = true
+		$scope.urgent = false
 
+		$scope.toggleUrgent = function(){
+			$scope.urgent = !$scope.urgent
+			console.log($scope.urgent)
+		}
 
 		// DISPLAY TASK CREATION MODAL
 		$scope.showTaskCreationModal = function(){
@@ -165,7 +175,7 @@ angular.module('Tahona')
 				eventHost : $scope.eventHost,
 				taskName : $scope.task.title,
 				taskUsers : [],
-				taskUrgent : $scope.task.urgent,
+				taskUrgent : $scope.urgent,
 				currentEvent : $rootScope.currentEvent
 			}
 			$http.post('/createTask', tempTaskObj)
