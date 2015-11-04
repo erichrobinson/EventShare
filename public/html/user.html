@@ -36,14 +36,14 @@
     </section>
   <md-content>
     <md-list>
-      <md-list-item class="md-3-line" ng-repeat="userEvent in allUserEvents | filter : selectedView">
+      <md-list-item class="md-3-line" ng-repeat="(index, userEvent) in allUserEvents | filter : selectedView">
         <div class="md-list-item-text">
           <h3>{{userEvent.eventName}}</h3>
           <p>{{userEvent}}</p>
           <p>{{userEvent.eventType}}</p>
           <button ng-click = "goToEvent(index, userEvent)">Go To Event</button>
-          <!-- <md-button ng-click="goToEvent(name, item)" class="md-secondary">Show Details</md-button> -->
           <button ng-click="displayEventPreview = !displayEventPreview">Preview Event</button>
+          <button ng-click="removeEvent(index, userEvent)">X</button>
           <div ng-show="displayEventPreview">
             {{userEvent.eventDescription}}
           </div>

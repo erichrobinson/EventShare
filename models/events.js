@@ -9,8 +9,9 @@ var eventSchema = mongoose.Schema({
 	location    : {type : String},
 	tasks       : {type : Array},
 	invites     : {type : Array},
-	recurring   : {type : Boolean}.
-	type 		: {type : String}
+	recurring   : {type : Boolean},
+	type 		: {type : String},
+	host		: {type : String}
 
 })
 

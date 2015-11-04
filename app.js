@@ -100,7 +100,7 @@ app.get('/getUserName', function(req, res){
 app.post('/createEvent', function(req,res){
   User.findOneAndUpdate(
     {_id : req.body.userID},
-    {$push : {events : {eventName : req.body.eventName, eventDescription : req.body.eventDescription, eventType : req.body.eventType, tasks : []}}},
+    {$push : {events : {host : req.body.host, eventName : req.body.eventName, eventDescription : req.body.eventDescription, eventType : req.body.eventType, tasks : []}}},
     {safe : true, upsert : true},
     function(err, model){
       console.log(err)
@@ -195,6 +195,22 @@ app.get('/findSpecificEvent', function(req, res){
       
     }
   })
+})
+
+app.post('/removeEvent', function(req, res){
+  // console.log(req.body)
+  User.findOne({_id : req.body.user}, function(err, doc){
+    console.log("PRE", doc)
+    doc.events.splice(req.body.index, 1)
+    doc.markModified('events')
+    doc.save(function(err){
+      if(err){
+        console.log(err)
+      }
+    })
+    console.log("POST", doc)
+  })
+  res.send("done")
 })
 
 app.get('/updateAllUsers', function(req, res){

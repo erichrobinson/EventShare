@@ -125,7 +125,8 @@ angular.module('Tahona')
 				userID : $routeParams.userID,
 				eventName : $scope.event.title,
 				eventType : $scope.tempEventType,
-				eventDescription : $scope.event.description
+				eventDescription : $scope.event.description,
+				host : $rootScope.currentUser.username
 			}
 			$http.post('/createEvent', tempEventObj)
 		      	.then(function(returnData){		  
@@ -143,7 +144,30 @@ angular.module('Tahona')
 			$scope.tempEventType = eventType 
 		} 
 	
+		// REMOVE SELECTED EVENT
+		$scope.removeEvent = function(indexOfEvent, eventToRemove){
+			// console.log("index", indexOfEvent)
+			// console.log("event", eventToRemove)
+			var tempRemoveObj = {
+				index : indexOfEvent,
+				user : $rootScope.currentUser._id,
+				event : eventToRemove,
+			}
+			$http.post('/removeEvent', tempRemoveObj)
+				.then(function(returnData){
+					console.log(returnData)
+				})
+			$http.get('/findAllEvents?id=' + $routeParams.userID)
+				.then(function(returnData){
+					console.log(returnData.data[0].events)
+					$rootScope.allUserEvents = returnData.data[0].events;
+					console.log($rootScope.allUserEvents)					
+			})
+		}
+
 	}])
+
+
 
 angular.module('Tahona')
 	.controller('createEventController', ['$scope', '$http', 'authService', '$location', '$routeParams', '$rootScope', '$mdDialog', function($scope, $http, authService, $location, $routeParams, $rootScope, $mdDialog){
@@ -193,15 +217,16 @@ angular.module('Tahona')
 				.then(function(returnData){
 					console.log(returnData.data[0].events)
 					$rootScope.allUserEvents = returnData.data[0].events
+					// Reset value of current tasks to reflect the newly added task
 					for(var i =0; i < returnData.data[0].events.length; i++){
 						if(returnData.data[0].events[i].eventName === $rootScope.currentEvent){
 							$rootScope.currentTasks = returnData.data[0].events[i].tasks
 						}
 					}
-					// $rootScope.currentTasks = returnData.data[0].events[?].tasks
 			})
 		}
 
+		// REMOVE A TASK
 		$scope.removeTask = function(){
 			var tempRemoveObj = {
 				task : this.task,
@@ -214,6 +239,17 @@ angular.module('Tahona')
 				.then(function(){
 					console.log("success")
 				})
+			$http.get('/findAllTasks?id=' + $scope.eventHost._id )
+				.then(function(returnData){
+					console.log(returnData.data[0].events)
+					$rootScope.allUserEvents = returnData.data[0].events
+					// Reset value of current tasks to reflect the newly added task
+					for(var i =0; i < returnData.data[0].events.length; i++){
+						if(returnData.data[0].events[i].eventName === $rootScope.currentEvent){
+							$rootScope.currentTasks = returnData.data[0].events[i].tasks
+						}
+					}
+			})
 		}
 
 	}])
