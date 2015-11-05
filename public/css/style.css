@@ -38,8 +38,14 @@
 	width: 125px;
 }
 
+.logo-sm {
+	height: 45px;
+	width: 45px;
+}
 
-
+.nav-logo {
+	padding: 15px 15px 15px 50px;
+}
 
 /* LINKS */
 a {
@@ -61,11 +67,11 @@ a {
 
 /*** Sizes ***/
 .txt-lrg {
-	font-size: 24px;
+	font-size: 32px;
 }
 
 .txt-xlrg {
-	font-size: 48px;
+	font-size: 52px;
 }
 
 /*** Weight ***/
@@ -81,7 +87,32 @@ a {
 /* HOME PAGE */
 .hero-text {
 	position: relative;
-	top: -200px;
+	top: -250px;
+	vertical-align: middle;
+}
+
+.text-overlay {
+	min-height: 100px;
+	min-width: 1000px;
+	background-color: rgba(230, 230, 230, .8);
+	display: inline-block;
+	line-height: 100px;
+}
+
+.home-icon-section {
+	position: relative;
+	top: -70px;
+}
+
+.home-icon-text {
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.home-description-section {
+	width: 80%;
+	margin: 0 auto;
 }
 
 /* USER PAGE */
@@ -99,7 +130,33 @@ a {
 	top: -175px;
 }
 
+/* NAVBAR */
+nav {
+	height: 75px;
+}
 
+/* FOOTER */
+.footer{
+	height: 75px;
+	background-color: #e74c3c;
+}
+
+.nav-name {
+	position: relative;
+	top: -26px;
+}
+
+.nav-login {
+	position: absolute;
+	right: 50px;
+	top: 15px;
+	z-index: 100;
+}
+
+/* PADDING */
+.padding-sm {
+	padding: 20px;
+}
 
 .red {
 	background-color: red;
