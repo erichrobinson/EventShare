@@ -1,28 +1,38 @@
-<div layout="column" ng-cloak class="md-inline-form">
-	
-  <md-content layout-padding layout="row" layout-sm="column">
-    <md-input-container>
+<div layout="row" ng-cloak>
+  <div flex="100">
+	<h3 class="align-center">Create a Task</h3>
+  <md-content class="align-center">
+  <md-button class="md-raised md-warn" ng-click="toggleUrgent()">
+        Urgent
+      </md-button>
+  </md-content>
+  </div>
+</div>
+<div layout="row" flex="100" ng-cloak layout-padding style="margin: 0 auto;" > 
+  <md-content >
+    <md-input-container >
       <label>Task Name</label>
       <input ng-model="task.title">
     </md-input-container>
   </md-content>
+  <md-datepicker style="padding-top: 10px;"ng-model="task.date" md-placeholder="Enter date"></md-datepicker>
+</div>
+<label class="align-center">Description</label>
+<div style="width: 700px" layout="row" flex="100" layout-padding>
 
+      <textarea style="width: 500px; height: 200px; margin: 0 auto;"ng-model="task.description">
+      </textarea>
+</div>
+<div layout-padding>
   <md-content layout-padding>
-    <form name="eventForm">
-        <md-datepicker ng-model="task.date" md-placeholder="Enter date"></md-datepicker>
+    <form name="taskForm">
         <md-input-container>
-	        <label>End Time</label>
-	        <input ng-model="task.endTime">
-        </md-input-container>
-	    <textarea ng-model="task.description">
-	    </textarea>
-	    <md-button class="md-raised md-warn" ng-click="toggleUrgent()">
-	    	Urgent
-	    </md-button>
-	    <div>
-	    	<md-content>
-	    	<md-list>
-	    		<div style="height: 100px;" ng-repeat="user in selectedContacts">
+          <label>Deadline</label>
+          <input ng-model="task.endTime">
+      </md-input-container>
+        <md-content>
+        <md-list>
+          <div style="height: 100px;" ng-repeat="user in selectedContacts">
             <img src="{{user.picture}}">  
             {{user.username}}
           </div>
@@ -30,21 +40,20 @@
             <label>Add Invites</label>
             <input ng-model="filterContacts">
           </md-input-container>
-    			<md-list class="fixedRows">
-    				<md-subheader class="md-no-sticky">Contacts</md-subheader>
-    				<md-list-item class="md-2-line contact-item" ng-repeat="user in updatedUsers | filter : filterContacts">
-    					<div class="md-list-item-text compact">
+          <md-list class="fixedRows">
+            
+            <md-list-item class="md-2-line contact-item" ng-repeat="user in updatedUsers | filter : filterContacts">
+              <div class="md-list-item-text compact align-center">
                 <md-button ng-click="addUserToTask(user)">
-      						<img ng-src="{{user.picture}}">
-  	    					<h3>{{user.username}}</h3>
-  	    					<p>{{user.email}}</p>  	
-                </md-button>				
-    					</div>
-    				</md-list-item>
-    			</md-list>    	
-	    	</md-content>
-	    </div>
-	<button ng-click="submitNewTask()"></button>
+                <img ng-src="{{user.picture}}">
+                <h3>{{user.username}}</h3>
+                <p>{{user.email}}</p>
+                </md-button>
+              </div>
+            </md-list-item>
+          </md-list>      
+        </md-content>
     </form>
   </md-content>
 </div>
+<md-button class="md-raised md-warn align-center" ng-click="submitNewTask()">Create Task</button>
