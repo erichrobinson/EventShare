@@ -1,21 +1,22 @@
 <div ng-controller="userController">
-  <div class="hero-container bg-red-light1 home-section">
+  <div class="hero-container bg-red-light1 user-info-section">
   <!-- <img class="user-hero"src="../img/user-bg.jpg"> -->
 </div>
 <div class="align-center user-hero-info" layout="row">
-  <div flex="33"><h2>{{userName}}</h2></div>
-  <div flex="33">
-    <span style="background-color: grey; width: 200px; height: 200px; border-radius: 100%; display: inline-block; position: relative; top: -100px;"></span>
+  <div flex="40"><h2 class="txt-white txt-xlrg" style="padding-top: 25px">{{userName}}</h2></div>
+  <div flex="20">
+    <img class="avatar-lrg user-hero-avatar"src="{{currentUser.picture}}">
+    <!-- <span style="background-color: grey; width: 200px; height: 200px; border-radius: 100%; display: inline-block; position: relative; top: -100px;"></span> -->
   </div>
-  <div flex="33">
-    <h2>Tasks</h2>
-    <table>
-      <tr>
+  <div flex="40" class="align-center">
+    <h2 class="txt-white txt-lrg txt-bld">Tasks</h2>
+    <table style="margin: 0 auto;" class="txt-white">
+      <tr class="user-stats">
         <th>Total</th>
         <th>Urgent</th>
         <th>Ending</th>
       </tr>
-      <tr>
+      <tr class="user-stats txt-bld">
         <td>3</td>
         <td>1</td>
         <td>1</td>
@@ -23,8 +24,7 @@
     </table>
   </div>
 </div>
-
-  <div class="eighty-percent-width event-list">
+  <div class=" event-list">
    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
       <md-button flex="15"class="md-raised md-primary" ng-click="selectedView = 'social'">Social</md-button>
       <md-button flex="15" class="md-raised md-primary" ng-click="selectedView = 'work'">Work</md-button>
@@ -33,16 +33,25 @@
       <md-button flex="15" class="md-warn md-raised" ng-click="showEventCreationModal()">
       Create Event
     </md-button>
-    </section>
-  <md-content>
+    </section>  
+  <md-content class="user-event-list eighty-percent-width">
     <md-list>
       <md-list-item class="md-3-line" ng-repeat="(index, userEvent) in allUserEvents | filter : selectedView">
         <div class="md-list-item-text">
-          <h3>{{userEvent.eventName}}</h3>
-          <p>{{userEvent.eventType}}</p>
-          <button ng-click = "goToEvent(index, userEvent)">Go To Event</button>
-          <button ng-click="displayEventPreview = !displayEventPreview">Preview Event</button>
-          <button ng-click="removeEvent(index, userEvent)">X</button>
+          <div layout="row">
+            <div flex="50">
+              <p>{{userEvent.eventType}}</p>
+              <h1 style="display: inline-block;">{{userEvent.eventName}}</h1>
+            </div>
+            <div style="text-align: right;"flex="50">
+              <md-button ng-click = "goToEvent(index, userEvent)">Go To Event</md-button>
+              <md-button ng-click="displayEventPreview = !displayEventPreview">Preview Event</md-button>
+              <md-button ng-click="removeEvent(index, userEvent)">X</md-button>
+            </div>
+          </div>
+          
+          
+          
           <div ng-show="displayEventPreview">
             {{userEvent.eventDescription}}
           </div>

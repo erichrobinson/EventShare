@@ -46,6 +46,10 @@
 .nav-logo {
 	padding: 15px 15px 15px 50px;
 }
+.avatar-lrg {
+	border-radius: 50%;
+	height: 150px;
+}
 
 /* LINKS */
 a {
@@ -87,7 +91,7 @@ a {
 /* HOME PAGE */
 .hero-text {
 	position: relative;
-	top: -250px;
+	top: -300px;
 	vertical-align: middle;
 }
 
@@ -120,14 +124,32 @@ a {
 	height: 350px;
 }
 
+.user-info-section {
+	height: 250px;
+}
+
 .event-list {
 	position: relative;
-	top: -200px;
+	top: -120px;
 }
 
 .user-hero-info {
 	position: relative;
 	top: -175px;
+}
+
+.user-hero-avatar {
+	position: relative;
+	top: -25px;
+}
+
+.user-stats th {
+	padding: 0 10px; 
+	font-size: 24px;
+}
+
+.user-event-list {
+	margin-top: 25px;
 }
 
 /* NAVBAR */

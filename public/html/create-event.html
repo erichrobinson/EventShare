@@ -1,15 +1,15 @@
-<div layout="column" ng-cloak class="md-inline-form">
-
-	<div>
-		<h1>Event Type</h1>
-		<md-content>
-			<md-button ng-click="setEventType('social')">Social</md-button>
-		    <md-button ng-click="setEventType('work')">Work</md-button>		    
-		    <md-button ng-click="setEventType('personal')">Personal</md-button>
+<div layout="row" ng-cloak class="md-inline-form">
+	<div flex="100">
+		<h1 class="align-center">Event Type</h1>
+		<md-content class="align-center">
+			<md-button class="md-raised"ng-click="setEventType('social')">Social</md-button>
+		    <md-button class="md-raised"ng-click="setEventType('work')">Work</md-button>		    
+		    <md-button class="md-raised"ng-click="setEventType('personal')">Personal</md-button>
 	    </md-content>
 
 	</div>
-	
+</div>
+<div layout="row" ng-cloak> 
   <md-content layout-padding layout="row" layout-sm="column">
     <md-input-container>
       <label>Event Name</label>
