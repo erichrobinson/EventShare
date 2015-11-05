@@ -53,14 +53,11 @@
       Create Task
     </md-button>
     <div ng-repeat="task in $root.currentTasks">
-    	<div>
+    	<div layout="row" style="margin: 0 22%; ">
     	<md-checkbox>
-          {{task.taskName}}
+          <p style="position: relative; top: 6px;">{{task.taskName}}</p>
         </md-checkbox>
-        <md-button>
-        	Details
-        </md-button>
-        <md-button class="md-warn" ng-click="removeTask()">
+        <md-button style="margin: 0 10%"class="md-warn" ng-click="removeTask()">
          	X
          </md-button>
     	</div>

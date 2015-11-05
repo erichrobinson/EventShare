@@ -97,7 +97,7 @@ angular.module('Tahona')
 				controller : 'userController',
 				templateUrl : '../html/create-event.html',
 				parent : angular.element(document.body),
-				clickOutsideToClose : true
+				clickOutsideToClose : true,
 			})
 		}
 
