@@ -1,4 +1,4 @@
-<div layout="row" ng-cloak class="md-inline-form">
+<div layout="row" ng-cloak >
 	<div flex="100">
 		<h1 class="align-center">Event Type</h1>
 		<md-content class="align-center">
@@ -6,20 +6,27 @@
 		    <md-button class="md-raised"ng-click="setEventType('work')">Work</md-button>		    
 		    <md-button class="md-raised"ng-click="setEventType('personal')">Personal</md-button>
 	    </md-content>
-
 	</div>
 </div>
-<div layout="row" ng-cloak> 
-  <md-content layout-padding layout="row" layout-sm="column">
-    <md-input-container>
+<div layout="row" flex="100" ng-cloak layout-padding style="margin: 0 auto;" > 
+  <md-content >
+    <md-input-container >
       <label>Event Name</label>
       <input ng-model="event.title">
     </md-input-container>
   </md-content>
+  <md-datepicker style="padding-top: 10px;"ng-model="event.date" md-placeholder="Enter date"></md-datepicker>
+</div>
+<label class="align-center">Description</label>
+<div style="width: 700px" layout="row" flex="100" layout-padding>
 
+	    <textarea style="width: 500px; height: 200px; margin: 0 auto;"ng-model="event.description">
+	    </textarea>
+</div>
+<div layout-padding>
   <md-content layout-padding>
     <form name="eventForm">
-        <md-datepicker ng-model="event.date" md-placeholder="Enter date"></md-datepicker>
+        
         <md-input-container>
 	        <label>Start Time</label>
 	        <input ng-model="event.startTime">
@@ -28,8 +35,6 @@
 	        <label>End Time</label>
 	        <input ng-model="event.endTime">
 	    </md-input-container>
-	    <textarea ng-model="event.description">
-	    </textarea>
 	    	<md-content>
 	    	<md-list>
 	    		<div style="height: 100px;" ng-repeat="user in selectedContacts">
@@ -41,9 +46,9 @@
 	    			<input ng-model="filterContacts">
 	    		</md-input-container>
     			<md-list class="fixedRows">
-    				<md-subheader class="md-no-sticky">Contacts</md-subheader>
+    				
     				<md-list-item class="md-2-line contact-item" ng-repeat="user in updatedUsers | filter : filterContacts">
-    					<div class="md-list-item-text compact">
+    					<div class="md-list-item-text compact align-center">
     						<md-button ng-click="addUserToEvent(user)">
     						<img ng-src="{{user.picture}}">
 	    					<h3>{{user.username}}</h3>
@@ -53,8 +58,7 @@
     				</md-list-item>
     			</md-list>    	
 	    	</md-content>
-	 
-	<button ng-click="submitNewEvent()"></button>
     </form>
   </md-content>
 </div>
+<md-button class="md-raised md-warn align-center" ng-click="submitNewEvent()">Create Event</button>
