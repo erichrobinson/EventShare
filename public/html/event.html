@@ -10,9 +10,15 @@
 <div layout="row" >
 	<div flex="33"class="align-center">
 		<h2>Description</h2>
+		{{currentEventInfo.eventDescription}}
 	</div>
 	<div flex="33"class="align-center">
 		<h2>Invites</h2>
+		<div ng-repeat="user in updatedUsers">
+			<img style="border-radius: 50% "ng-src="{{user.picture}}">
+			{{user.username}}
+			
+		</div>
 	</div>
 	<div flex="33" class="align-center">
 		<h2>Tasks</h2>

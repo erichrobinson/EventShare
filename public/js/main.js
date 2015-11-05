@@ -82,7 +82,8 @@ angular.module('Tahona')
 		$scope.goToEvent = function(index, event){
 			$http.get('/findSpecificEvent?id=' + $routeParams.userID + "&eventName=" + event.eventName)
 				.then(function(returnData){
-				console.log(returnData)			
+				console.log(returnData)
+					$rootScope.allEventData = returnData.data			
 					$rootScope.currentEvent = returnData.data.eventName
 					$rootScope.currentTasks = returnData.data.tasks
 					$location.url("/event/" + returnData.data)  
@@ -200,6 +201,7 @@ angular.module('Tahona')
 		$scope.urgent = false
 		$scope.updatedUsers = []
 		$scope.selectedContacts = []
+		$scope.currentEventInfo = $rootScope.allEventData
 
 		$http.get('/updateAllUsers')
 			.then(function(returnData){
