@@ -1,12 +1,33 @@
 <div ng-controller="eventController">
-	<div layout="row">
+  <div class="hero-container bg-red-light1 user-info-section">
+  <!-- <img class="user-hero"src="../img/user-bg.jpg"> -->
+</div>
+<div class="align-center user-hero-info" layout="row">
+  <div flex="100"><h2 class="txt-white txt-xlrg" style="padding-top: 25px">{{currentEvent}}</h2></div>
+<!--   <div flex="40" class="align-center">
+    <h2 class="txt-white txt-lrg txt-bld">Tasks</h2>
+    <table style="margin: 0 auto;" class="txt-white">
+      <tr class="user-stats">
+        <th>Total</th>
+        <th>Urgent</th>
+        <th>Ending</th>
+      </tr>
+      <tr class="user-stats txt-bld">
+        <td>3</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    </table>
+  </div> -->
+</div>
+	<!-- <div layout="row">
   <div class="hero-container bg-red-light1 home-section">
   
   </div>
 	<div flex class="eventHero">
 		<h3 class="eventDetails">Time</h3><h1 class="eventDetails">/{{currentEvent}}/</h1><h3 class="eventDetails">Date</h3>
 	</div>
-</div>
+</div> -->
 <div layout="row" >
 	<div flex="33"class="align-center">
 		<h2>Description</h2>
@@ -15,8 +36,14 @@
 	<div flex="33"class="align-center">
 		<h2>Invites</h2>
 		<div ng-repeat="user in updatedUsers">
+		<div style="width: 60px; display: inline-block;">
 			<img style="border-radius: 50% "ng-src="{{user.picture}}">
-			{{user.username}}
+		</div>
+
+			<div>
+			<span class="username-formatting">{{user.username}}</span>
+
+			</div>
 			
 		</div>
 	</div>
